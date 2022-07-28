@@ -1,0 +1,22 @@
+{
+  "translations": {
+    "login": {
+      "login": "Log in",
+      "information": "Welcome back! Please enter your details",
+      "newUser": "New User",
+      "oldUser": "Returning User",
+      "email": "Sign in with Email",
+      "phone": "Sign in with Phone"
+    },
+    "info": {
+      "info": "Financial Advisory System 2021"
+    },
+    "phoneLogin": {
+      "email": "email",
+      "phone": "Phone",
+      "password": "Password",
+      "remember": "Remember for 30 days",
+      "log": "Log in"
+    }
+  }
+}
