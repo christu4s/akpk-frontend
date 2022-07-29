@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
     height: 24,
   },
   text: {
-    fontSize: "26px !important",
+    fontSize: "16px !important",
     color: "#696974 !important",
     textAlign: "left !important ",
     marginBottom: "16px !important",
