@@ -73,7 +73,7 @@ const useStyles = makeStyles((theme) => ({
     cursor: "pointer",
   },
   pay: {
-    fontSize: "40px !important",
+    fontSize: "20px !important",
     fontWeight: "bold",
     color: "#00AEEF !important",
   },

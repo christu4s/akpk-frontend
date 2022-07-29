@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: "16px !important",
   },
   title: {
-    fontSize: "41px !important",
+    fontSize: "14px !important",
     color: "#171725 !important",
     textAlign: "left !important ",
     fontWeight: "bold",
