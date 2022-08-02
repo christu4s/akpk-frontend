@@ -85,22 +85,22 @@ const useStyles = makeStyles((theme) => ({
 export default function Debt() {
   const classes = useStyles();
   const [connected, setConnected] = useState(false);
-  const [cpToken, setCpToken] = useState(null);
-  const [cpCustomerId, setCpCustomerId] = useState(null);
-  const [cpRefreshToken, setCpRefreshToken] = useState(null);
-  const [dmpStatus, setDmpStatus] = useState(null);
-  const [dmpReferenceNumber, setDmpReferenceNumber] = useState(null);
-  const [currentPayment, setCurrentPayment] = useState(null);
-  const [paymentInArrears, setPaymentInArrears] = useState(null);
-  const [lastPaymentDate, setLastPaymentDate] = useState(null);
+  // const [cpToken, setCpToken] = useState(null);
+  // const [cpCustomerId, setCpCustomerId] = useState(null);
+  // const [cpRefreshToken, setCpRefreshToken] = useState(null);
+  const [data, setData] = useState({});
+  const { dmpStatus, dmpReferenceNumber,currentPayment, paymentInArrears, lastPaymentDate } = data || {};
+  // const [dmpStatus, setDmpStatus] = useState(null);
+  // const [dmpReferenceNumber, setDmpReferenceNumber] = useState(null);
+  // const [currentPayment, setCurrentPayment] = useState(null);
+  // const [paymentInArrears, setPaymentInArrears] = useState(null);
+  // const [lastPaymentDate, setLastPaymentDate] = useState(null);
   
-  const auth = useAuth();
-  const navigate = useNavigate();
+  const {token, userInfo, setUserInfo} = useAuth();
+  const config = {
+    headers: { Authorization: `Bearer ${token}` }
+  };
   const getApplicationUrl = () => {
-    const config = {
-      headers: { Authorization: `Bearer ${auth.token}` }
-    };
-    
       axios.get(`http://10.250.1.121/osp-server/api/get_application_url`,config)
      .then(result => {
        if(result.data.response.application_url) {
@@ -111,70 +111,35 @@ export default function Debt() {
      }).catch(error => {
        return error;
     });
-  
   }
   const navigateClientLocation = event => {
     if(connected === false) {
     window.open('http://10.250.1.130:2800/customerindex.html#/OAuth/Auth/clientID=AKPK_OSP', '', 'noopener,noreferrer');
-    setConnected(true);
+    setUserInfo({...userInfo, cp_connected: true});
     } 
      else {
       const config = {
-        headers: { Authorization: `Bearer ${auth.token}` }
+        headers: { Authorization: `Bearer ${token}` }
       };
        axios.get(`http://10.250.1.121/osp-server/api/disconnect_customer_portal`,config)
       .then(result => {
         if(result.data.status == true) {
-          setConnected(false);
+          // setConnected(false);
+          setUserInfo({...userInfo, cp_connected: false});
         }
-       
       }) 
     }
   }
-  console.log("userAllInfo"+auth.userAllInfo);
+  console.log("userAllInfo", userInfo);
   useEffect(() => {
-    if(auth.token) {
-    const config = {
-      headers: { Authorization: `Bearer ${auth.token}` }
-    };
-    const fetchData = async () => {
-       await  axios.post(`http://10.250.1.121/osp-server/api/user_info`,null,config)
-      .then(result => {
-       // console.log('result'+JSON.stringify(result));
-        setCpToken(result.data.user.cp_token);
-        setCpCustomerId(result.data.user.customer_id);
-        setCpRefreshToken(result.data.user.cp_refresh_token);
-        if(result.data.user.cp_token != null) {
-          //setConnected(true);
-        }
-      }).catch(error => {
-        return error;
-     });
-    };
-
-    // const configOsp = {
-    //   headers: { Authorization: `Bearer ${auth.token}` }
-    // };
-
-    const fetchOspCustomerDetails = async () => {
-      await  axios.get(`http://10.250.1.121/osp-server/api/get_osp_customer_details`,config)
+    console.log('get_osp_customer_details', config)
+    axios.get(`http://10.250.1.121/osp-server/api/get_osp_customer_details`,config)
      .then(result => {
        console.log(result.data.response);
-       setDmpStatus(result.data.response.DMPStatus);
-       setDmpReferenceNumber(result.data.response.DMPReferenceNumber);
-       setCurrentPayment(result.data.response.CurrentPayment);
-       setPaymentInArrears(result.data.response.PaymentInArrears);
-       setLastPaymentDate(result.data.response.LastPaymentDate);
-      }).catch(error => {
-       return error;
-    });
-   };
-  
-    fetchData();
-    fetchOspCustomerDetails();
-  }
-  },[auth.token]);
-  
+       setData(result.data.response);
+      }).catch(error => { return error; });
+  }, [config]);
+
   return (
     <DashboardLayout>
       <Grid container spacing={2} className={classes.margin}>
@@ -184,7 +149,7 @@ export default function Debt() {
             image="dmp"
             text="AKPK provides an avenue for distressed borrowers to regain control of their debts by working closely with financial advisors in developing a personalised debt repayment plan in consultation with their respective financial service providers."
             color="rgba(14, 84, 144, 0.6)"
-            connected={connected}
+            connected={userInfo && userInfo.cp_connected}
             handleConnect={() => navigateClientLocation()}
             //handleConnect={() => setConnected(true)}
             handleDisonnect={() => navigateClientLocation()}

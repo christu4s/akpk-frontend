@@ -104,12 +104,12 @@ export default function EmailLogin() {
          
           document.cookie = "token="+result.data.token+"; expires=0; path=/";
           if(result.data.user.email) {
-            auth.login(result.data.user.email);
+            auth.login(result.data.user);
             document.cookie = "user="+result.data.user.email+"; expires=0; path=/";
             navigate("/home", {state:{result:result.data}});
           } 
           if(result.data.user.contact_number) {
-            auth.login(result.data.user.contact_number);
+            auth.login(result.data.user);
             document.cookie = "user="+result.data.user.contact_number+"; expires=0; path=/";
             navigate("/home", {state:{result:result.data}});
           }

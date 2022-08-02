@@ -21,47 +21,42 @@ function getCookie(cname) {
 
 export const AuthProvider = ({children}) => {
   const [user, setUser] = useState(null);
-  const [token, setToken] = useState(null);
-  const [userInfo, setUserInfo] = useState(null);
-
-  
+  // const [token, setToken] = useState(null);
+  var token = getCookie("token");
+  const [userInfo, setUserInfo] = useState({});  
 
   const login = (user) => {
-    setUser(getCookie("userinfo"));
+    setUserInfo(user);
   }
 
   const logout = () => {
     document.cookie = "token=; user=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-    setToken(null);
+    // setToken(null);
     setUserInfo(null);
     setUser(null);
   }
  
   useEffect(() => {
-    if(token) {
+    if(!token) return;
     const config = {
       headers: { Authorization: `Bearer ${token}` }
     };
-    const fetchData = async () => {
-       await  axios.post(`http://10.250.1.121/osp-server/api/user_info`,null,config)
+     axios.post(`http://10.250.1.121/osp-server/api/user_info`,null,config)
       .then(result => {
-        console.log('result auth'+result.response);
+        console.log('result auth', result.response);
         setUserInfo(result.response);
       }).catch(error => {
         return error;
      });
-    };
-  }
- });
+ }, []);
   
-
-  useEffect(()=>{
-   setUser(getCookie("user"));
-   setToken(getCookie("token"));
-   },[])
+  // useEffect(()=>{
+  //  setUser(getCookie("user"));
+  //  setToken(getCookie("token"));
+  //  },[])
 
   return (
-    <AuthContext.Provider value={{user, token ,userInfo,  login, logout}}>
+    <AuthContext.Provider value={{user, token ,userInfo, setUserInfo,  login, logout}}>
       {children}
     </AuthContext.Provider>
   )
