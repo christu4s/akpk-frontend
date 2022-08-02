@@ -104,7 +104,7 @@ export default function Debt() {
       axios.get(`http://10.250.1.121/osp-server/api/get_application_url`,config)
      .then(result => {
        if(result.data.response.application_url) {
-         window.open(result.data.response.application_url+'/LoginCode='+result.data.response.login_code+'&CustomerID='+result.data.CustomerID, '_blank', 'noopener,noreferrer');
+         window.open(result.data.response.application_url+'/LoginCode='+result.data.response.login_code+'&CustomerID='+result.data.CustomerID, '', 'noopener,noreferrer');
        } else {
         console.log('Not yet received url');
        }
@@ -115,7 +115,7 @@ export default function Debt() {
   }
   const navigateClientLocation = event => {
     if(connected === false) {
-    window.open('http://10.250.1.130:2800/customerindex.html#/OAuth/Auth/clientID=AKPK_OSP', '_blank', 'noopener,noreferrer');
+    window.open('http://10.250.1.130:2800/customerindex.html#/OAuth/Auth/clientID=AKPK_OSP', '', 'noopener,noreferrer');
     setConnected(true);
     } 
      else {
@@ -173,7 +173,8 @@ export default function Debt() {
     fetchData();
     fetchOspCustomerDetails();
   }
-  });
+  },[auth.token]);
+  
   return (
     <DashboardLayout>
       <Grid container spacing={2} className={classes.margin}>

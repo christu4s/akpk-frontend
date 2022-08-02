@@ -16,6 +16,7 @@ import Header from "../../../components/Header";
 import { useNavigate } from "react-router-dom";
 import AlertValidation from "../../../components/AlertValidation";
 import axios from 'axios';
+import {useAuth} from "../../../components/Auth";
 
 const useStyles = makeStyles((theme) => ({
   buttonContained: {
@@ -57,6 +58,8 @@ export default function EmailLogin() {
   const navigate = useNavigate();
   const [errorResponse, setErrorResponse] = useState();
   const [open, setOpen] = useState(false);
+  const auth = useAuth();
+
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -98,7 +101,19 @@ export default function EmailLogin() {
     axios.post(`http://10.250.1.121/osp-server/api/login`, dataInput)
       .then(result => {
         if(result.data.status && result.data.status === true) {
-          navigate("/home", {state:{email:formik.values.email}});
+         
+          document.cookie = "token="+result.data.token+"; expires=0; path=/";
+          if(result.data.user.email) {
+            auth.login(result.data.user.email);
+            document.cookie = "user="+result.data.user.email+"; expires=0; path=/";
+            navigate("/home", {state:{result:result.data}});
+          } 
+          if(result.data.user.contact_number) {
+            auth.login(result.data.user.contact_number);
+            document.cookie = "user="+result.data.user.contact_number+"; expires=0; path=/";
+            navigate("/home", {state:{result:result.data}});
+          }
+      
         } else {
           setErrorResponse('Invalid credentials');
           return handleOpen();

@@ -92,7 +92,6 @@ export default function EmailSignUp() {
       .then(result => {
         console.log(result);
         if(result.data.status && result.data.status === 'SUCCESS') {
-          document.cookie = "token="+result.data.token+"; expires=0; path=/";
           navigate("/email-check/",{state:{email:formik.values.email}});
         } else {
           setErrorResponse(result.data.message);
