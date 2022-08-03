@@ -89,7 +89,7 @@ export default function Debt() {
   // const [cpCustomerId, setCpCustomerId] = useState(null);
   // const [cpRefreshToken, setCpRefreshToken] = useState(null);
   const [data, setData] = useState({});
-  const { dmpStatus, dmpReferenceNumber,currentPayment, paymentInArrears, lastPaymentDate } = data || {};
+  const { DMPStatus, DMPReferenceNumber,CurrentPayment, PaymentInArrears, LastPaymentDate } = data || {};
   // const [dmpStatus, setDmpStatus] = useState(null);
   // const [dmpReferenceNumber, setDmpReferenceNumber] = useState(null);
   // const [currentPayment, setCurrentPayment] = useState(null);
@@ -130,6 +130,7 @@ export default function Debt() {
       }) 
     }
   }
+  
   console.log("userAllInfo", userInfo);
   useEffect(() => {
     console.log('get_osp_customer_details', config)
@@ -138,6 +139,7 @@ export default function Debt() {
        console.log(result.data.response);
        setData(result.data.response);
       }).catch(error => { return error; });
+      cp_connected = (DMPStatus) ? true : false;
   }, [config]);
 
   return (
@@ -171,34 +173,34 @@ export default function Debt() {
 
         <Grid item xs={12} container spacing={2} className={classes.debt}>
           <Grid item xs={3}>
-            <DebtCard icon={"employee"} text={"DMP Status"} title={dmpStatus} />
+            <DebtCard icon={"employee"} text={"DMP Status"} title={DMPStatus} />
           </Grid>
           <Grid item xs={4}>
             <DebtCard
               icon={"link"}
               text={"DM Reference Number"}
-              title={dmpReferenceNumber}
+              title={DMPReferenceNumber}
             />
           </Grid>
           <Grid item xs={5}>
             <DebtCard
               icon={"rm"}
               text={"Current Instalment to AKPK"}
-              title={currentPayment}
+              title={CurrentPayment}
             />
           </Grid>
           <Grid item xs={4}>
             <DebtCard
               icon={"calander"}
               text={"Last Payment to AKPK "}
-              title={lastPaymentDate}
+              title={LastPaymentDate}
             />
           </Grid>
           <Grid item xs={5}>
             <DebtCard
               icon={"rm"}
               text={"Payment in arrears to AKPK"}
-              title={paymentInArrears}
+              title={PaymentInArrears}
             />
           </Grid>
           <Grid item xs={3}>
