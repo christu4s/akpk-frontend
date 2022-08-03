@@ -69,7 +69,7 @@ export default function CheckEmail() {
       .then(result => {
         if(result.data.success && result.data.success === true) {
           console.log('user list:'+JSON.stringify(result.data));
-          auth.login(result.data.user.email);
+          auth.login(result.data.user);
           document.cookie = "user="+result.data.user.email+"; expires=0; path=/";
           document.cookie = "token="+result.data.token+"; expires=0; path=/";
           console.log(document.cookie);

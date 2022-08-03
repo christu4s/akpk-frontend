@@ -69,7 +69,7 @@ export default function PhoneSignUp() {
         axios.post(`http://10.250.1.121/osp-server/api/signup_number`,{ mobile_phone: formik.values.phone.replace(/[^a-zA-Z0-9 ]/g, "").replace(/ /g, "")})
         .then(result => {
           if(result.data.status && result.data.status === 'success') { 
-            document.cookie = "token="+result.data.token+"; expires=0; path=/";
+           // document.cookie = "token="+result.data.token+"; expires=0; path=/";
             navigate("/phone-check", {state:{mobile_phone:formik.values.phone}});
           } else {
             setErrorResponse(result.data.message);

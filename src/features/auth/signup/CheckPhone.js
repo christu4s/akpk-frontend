@@ -67,7 +67,7 @@ export default function CheckPhone() {
     axios.post(`http://10.250.1.121/osp-server/api/verify_opt_contact_number`,{ contact_number: state.mobile_phone.replace(/[^a-zA-Z0-9 ]/g, "").replace(/ /g, ""), otp: OTP})
      .then(result => {
        if(result.data.success && result.data.success === true) {
-        auth.login(result.data.user.contact_number);
+        auth.login(result.data.user);
         document.cookie = "user="+result.data.user.contact_number+"; expires=0; path=/";
         document.cookie = "token="+result.data.token+"; expires=0; path=/";
         navigate("/home/",{state:{result:result.data}});

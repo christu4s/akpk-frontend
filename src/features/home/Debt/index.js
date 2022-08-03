@@ -85,6 +85,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Debt() {
   const classes = useStyles();
   const [connected, setConnected] = useState(false);
+  const {token, userInfo, setUserInfo} = useAuth();
   // const [cpToken, setCpToken] = useState(null);
   // const [cpCustomerId, setCpCustomerId] = useState(null);
   // const [cpRefreshToken, setCpRefreshToken] = useState(null);
@@ -96,7 +97,7 @@ export default function Debt() {
   // const [paymentInArrears, setPaymentInArrears] = useState(null);
   // const [lastPaymentDate, setLastPaymentDate] = useState(null);
   
-  const {token, userInfo, setUserInfo} = useAuth();
+  
   const config = {
     headers: { Authorization: `Bearer ${token}` }
   };
@@ -116,6 +117,7 @@ export default function Debt() {
     if(connected === false) {
     window.open('http://10.250.1.130:2800/customerindex.html#/OAuth/Auth/clientID=AKPK_OSP', '', 'noopener,noreferrer');
     setUserInfo({...userInfo, cp_connected: true});
+    setConnected(true);
     } 
      else {
       const config = {
@@ -126,12 +128,13 @@ export default function Debt() {
         if(result.data.status == true) {
           // setConnected(false);
           setUserInfo({...userInfo, cp_connected: false});
+          setConnected(false);
         }
       }) 
     }
   }
   
-  console.log("userAllInfo", userInfo);
+  console.log("userInfo", userInfo);
   useEffect(() => {
     console.log('get_osp_customer_details', config)
     axios.get(`http://10.250.1.121/osp-server/api/get_osp_customer_details`,config)
@@ -139,7 +142,6 @@ export default function Debt() {
        console.log(result.data.response);
        setData(result.data.response);
       }).catch(error => { return error; });
-      cp_connected = (DMPStatus) ? true : false;
   }, [config]);
 
   return (
