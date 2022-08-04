@@ -38,7 +38,7 @@ export default function AlertValidation({ open, onClose, errorResponse, redirect
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
   const classes = useStyles();
   const handleNext = () => {
-    console.log("id", id);
+  
     id <= 0 ? setId(id + 1) : handleCloseUp();
   };
   const handleCloseUp = () => {

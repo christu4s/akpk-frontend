@@ -68,11 +68,9 @@ export default function CheckEmail() {
      axios.post(`http://10.250.1.121/osp-server/api/verify_opt_email`,{ email: state.email, otp: OTP})
       .then(result => {
         if(result.data.success && result.data.success === true) {
-          console.log('user list:'+JSON.stringify(result.data));
           auth.login(result.data.user);
           document.cookie = "user="+result.data.user.email+"; expires=0; path=/";
           document.cookie = "token="+result.data.token+"; expires=0; path=/";
-          console.log(document.cookie);
           navigate(redirectPath,{state:{result:result.data}});
         } else {
           return false;

@@ -43,7 +43,7 @@ export default function ProfileDialog({ open, onClose }) {
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
   const classes = useStyles();
   const handleNext = () => {
-    console.log("id", id);
+
     id <= 0 ? setId(id + 1) : handleClose();
   };
   const handleClose = () => {

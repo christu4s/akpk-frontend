@@ -116,8 +116,8 @@ export default function Debt() {
   const navigateClientLocation = event => {
     if(connected === false) {
     window.open('http://10.250.1.130:2800/customerindex.html#/OAuth/Auth/clientID=AKPK_OSP', '', 'noopener,noreferrer');
-    setUserInfo({...userInfo, cp_connected: true});
-    setConnected(true);
+    // setUserInfo({...userInfo, cp_connected: true});
+    // setConnected(true);
     } 
      else {
       const config = {
@@ -128,13 +128,12 @@ export default function Debt() {
         if(result.data.status == true) {
           // setConnected(false);
           setUserInfo({...userInfo, cp_connected: false});
-          setConnected(false);
+          // setConnected(false);
         }
       }) 
     }
   }
   
-  console.log("userInfo", userInfo);
   useEffect(() => {
     console.log('get_osp_customer_details', config)
     axios.get(`http://10.250.1.121/osp-server/api/get_osp_customer_details`,config)
