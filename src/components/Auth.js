@@ -25,6 +25,10 @@ export const AuthProvider = ({children}) => {
   var token = getCookie("token");
   const [userInfo, setUserInfo] = useState({});  
 
+  useEffect(()=>{
+    console.log(userInfo);
+  }, [JSON.stringify(userInfo)]);
+
   const login = (user) => {
     setUserInfo(user);
   }
@@ -43,8 +47,8 @@ export const AuthProvider = ({children}) => {
     };
      axios.post(`http://10.250.1.121/osp-server/api/user_info`,null,config)
       .then(result => {
-        console.log('result auth', result.response);
-        setUserInfo(result.response);
+        console.log('result auth', result.data);
+        if(result.data) setUserInfo(result.data.user);
       }).catch(error => {
         return error;
      });

@@ -85,10 +85,11 @@ const useStyles = makeStyles((theme) => ({
 export default function Debt() {
   const classes = useStyles();
   const [connected, setConnected] = useState(false);
-  const {token, userInfo, setUserInfo} = useAuth();
+  const {token, userInfo, user, setUserInfo} = useAuth();
   // const [cpToken, setCpToken] = useState(null);
   // const [cpCustomerId, setCpCustomerId] = useState(null);
   // const [cpRefreshToken, setCpRefreshToken] = useState(null);
+  console.log('userInfo', userInfo, user);
   const [data, setData] = useState({});
   const { DMPStatus, DMPReferenceNumber,CurrentPayment, PaymentInArrears, LastPaymentDate } = data || {};
   // const [dmpStatus, setDmpStatus] = useState(null);
@@ -105,7 +106,7 @@ export default function Debt() {
       axios.get(`http://10.250.1.121/osp-server/api/get_application_url`,config)
      .then(result => {
        if(result.data.response.application_url) {
-         window.open(result.data.response.application_url+'/LoginCode='+result.data.response.login_code+'&CustomerID='+result.data.CustomerID, '', 'noopener,noreferrer');
+         window.open(result.data.response.application_url+'/LoginCode='+result.data.response.login_code+'&CustomerID='+result.data.CustomerID, '_self', 'noopener,noreferrer');
        } else {
         console.log('Not yet received url');
        }
@@ -115,7 +116,7 @@ export default function Debt() {
   }
   const navigateClientLocation = event => {
     if(connected === false) {
-    window.open('http://10.250.1.130:2800/customerindex.html#/OAuth/Auth/clientID=AKPK_OSP', '', 'noopener,noreferrer');
+    window.open('http://10.250.1.130:2800/customerindex.html#/OAuth/Auth/clientID=AKPK_OSP', '_self', 'noopener,noreferrer');
     // setUserInfo({...userInfo, cp_connected: true});
     // setConnected(true);
     } 
@@ -135,13 +136,11 @@ export default function Debt() {
   }
   
   useEffect(() => {
-    console.log('get_osp_customer_details', config)
     axios.get(`http://10.250.1.121/osp-server/api/get_osp_customer_details`,config)
      .then(result => {
-       console.log(result.data.response);
        setData(result.data.response);
       }).catch(error => { return error; });
-  }, [config]);
+  }, [JSON.stringify(config)]);
 
   return (
     <DashboardLayout>
