@@ -14,6 +14,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "flex-start",
     padding: "5px 25px",
     backgroundColor: "#fff",
+    height:'100%',
   },
   text: {
     display: "flex",
@@ -138,14 +139,14 @@ export default function CustomDrawer({ open, onClose }) {
             </Typography>
           </Box>
         </Box>
-        <Box onClick={() => navigate("/support")} className={classes.support}>
+        {/* <Box onClick={() => navigate("/support")} className={classes.support}>
           <img
             src={require("../../assets/Support.png")}
             width="168px"
             height="214px"
           />
-        </Box>
-        <Box className={classes.nav} onClick={() => navigate("/settings")}>
+        </Box> */}
+        {/* <Box className={classes.nav} onClick={() => navigate("/settings")}>
           <Typography className={classes.text} variant="h4">
             <img
               className={classes.icon}
@@ -153,8 +154,8 @@ export default function CustomDrawer({ open, onClose }) {
             />
             Settings
           </Typography>
-        </Box>
-        <Box className={classes.nav} onClick={() => navigate("/login")}>
+        </Box> */}
+        <Box className={classes.nav} marginTop={'auto'} onClick={() => navigate("/login")}>
           <Typography className={classes.text} variant="h4">
             <img
               className={classes.icon}

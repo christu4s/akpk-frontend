@@ -14,6 +14,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "flex-start",
     padding: "5px 25px",
     backgroundColor: "#fff",
+    height:'100%',
   },
   text: {
     display: "flex",
@@ -152,7 +153,7 @@ export default function Sidebar() {
           height="214px"
         />
       </Box>
-      <Box className={classes.nav} onClick={() => navigate("/settings")}>
+      {/* <Box className={classes.nav} onClick={() => navigate("/settings")}>
         <Typography className={classes.text} variant="h4">
           <img
             className={classes.icon}
@@ -160,8 +161,8 @@ export default function Sidebar() {
           />
           Settings
         </Typography>
-      </Box>
-      <Box className={classes.nav} onClick={() => logout()}>
+      </Box> */}
+      <Box className={classes.nav} marginTop={'auto'} onClick={() => logout()}>
         <Typography className={classes.text} variant="h4">
           <img
             className={classes.icon}
