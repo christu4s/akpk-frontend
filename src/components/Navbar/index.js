@@ -135,7 +135,7 @@ export default function Navbar({ openDialog }) {
           </Box>
         </Box>
       </Box>
-      <Box>
+      {/* <Box>
         <Typography className={classes.profileCompleted}>
           Your profile is not completed{" "}
           <span onClick={openDialog} className={classes.click}>
@@ -143,7 +143,7 @@ export default function Navbar({ openDialog }) {
           </span>{" "}
           to complete the profile.
         </Typography>
-      </Box>
+      </Box> */}
     </>
   );
 }
