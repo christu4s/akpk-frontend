@@ -78,6 +78,7 @@ export default function BlueCard({
                 variant="outlined"
                 className={classes.outlinedButton}
                 onClick={handleDisonnect}
+                style={{marginLeft: "225px"}}
               >
                 Disconnect
               </Button>
