@@ -1,22 +1,14 @@
-import {
-  Button,
-  Checkbox,
-  FormControlLabel,
-  Grid,
-  TextField,
-  Typography,
-} from "@mui/material";
-import React from "react";
+import { Button, Grid, TextField, Typography } from "@mui/material";
+import React, { useState } from "react";
 import CardWrapper from "../../../components/Card";
 import { useTranslation } from "react-i18next";
 import { makeStyles } from "@mui/styles";
 import { useFormik } from "formik";
 import * as yup from "yup";
-import InputMask from "react-input-mask";
 import Header from "../../../components/Header";
-import { useNavigate } from "react-router-dom";
-import axios from 'axios';
-
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+import axios from "axios";
+import AlertValidation from "../../../components/AlertValidation";
 
 const useStyles = makeStyles((theme) => ({
   buttonContained: {
@@ -40,57 +32,98 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const validationSchema = yup.object({
-  password: yup.string().required("Password is required").min(6,'Password Must be a minumum of 6 caracters'),
-  c_password: yup.string().required("Password confirmation is required").oneOf([yup.ref('password'), null], 'Passwords must match'),
+  password: yup
+    .string()
+    .required("Password is required")
+    .min(6, "Password Must be a minumum of 6 caracters"),
+  c_password: yup
+    .string()
+    .required("Password confirmation is required")
+    .oneOf([yup.ref("password"), null], "Passwords must match"),
 });
 
 export default function PhoneSignUp() {
   const { t } = useTranslation();
   const classes = useStyles();
   const navigate = useNavigate();
+  const {state} = useLocation();
+  const redirectPath = state ? '/home': '/';
+  const [errorResponse, setErrorResponse] = useState();
+  const [open, setOpen] = useState(false);
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+  const signupType =
+    state.result.login_via === "email"
+      ? { email: state.result.user?.email }
+      : { contact_number: state.result.user?.contact_number };
+  
+  const config = {
+    headers: { Authorization: `Bearer ${state.result.token}` }
+  };
+
   const formik = useFormik({
     initialValues: {
-      password: '',
-      c_password : '',
+      password: "",
+      c_password: "",
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-     // return console.log(formik.values.phone);
-      axios.post(`http://10.250.1.121/osp-server/api/signup_number`,{ mobile_phone: formik.values.phone})
-      .then(result => {
-        if(result.data.status && result.data.status === 'success') { 
-          navigate("/phone-check", {state:{mobile_phone:formik.values.phone}});
-        } else {
-          return false;
-        }
-      }) 
+      axios
+        .post(`http://10.250.1.121/osp-server/api/update_password`,
+        {
+          password: formik.values.password,
+          c_password: formik.values.c_password,
+          ...signupType,
+        },config)
+        .then((result) => {
+          if(result.data.status && result.data.message === 'success') {
+            navigate(redirectPath,{state:{result:state.result}});
+          } else {
+            setErrorResponse(result.data.message);
+            return handleOpen();
+          }
+        }).catch((err) => {
+            setErrorResponse(err.response.data.message);
+            return handleOpen();
+        });
     },
   });
- 
+
+  const redirectURL = () => {
+    formik.values.password = '';
+    formik.values.c_password = '';
+    setOpen(false);
+  }
+
   return (
     <CardWrapper>
       <Grid container spacing={2}>
         <form onSubmit={formik.handleSubmit} className={classes.form}>
           <Header
-            title={t('password.update_password')}
-            subtitle={t('password.update_password_information')}
+            title={t("password.update_password")}
+            subtitle={t("password.update_password_information")}
           />
           <Grid item padding={2} xs={12}>
             <Typography className={classes.inputLabel} variant="subtitle1">
               {t("password.input_password")}
             </Typography>
-            <TextField 
-                className={classes.input}
-                id="password"
-                name="password"
-                type="password"
-                placeholder="Use a min of 6 characters"
-                value={formik.values.password}
-                onChange={formik.handleChange}
-                error={formik.touched.password && Boolean(formik.errors.password)}
-                helperText={formik.touched.password && formik.errors.password}
-                fullWidth
-                InputLabelProps={{ shrink: true }}
+            <TextField
+              className={classes.input}
+              id="password"
+              name="password"
+              type="password"
+              placeholder="Use a min of 6 characters"
+              value={formik.values.password}
+              onChange={formik.handleChange}
+              error={formik.touched.password && Boolean(formik.errors.password)}
+              helperText={formik.touched.password && formik.errors.password}
+              fullWidth
+              InputLabelProps={{ shrink: true }}
             />
           </Grid>
 
@@ -98,18 +131,20 @@ export default function PhoneSignUp() {
             <Typography className={classes.inputLabel} variant="subtitle1">
               {t("password.input_c_password")}
             </Typography>
-            <TextField 
-                className={classes.input}
-                id="c_password"
-                name="c_password"
-                type="password"
-                placeholder="Use a min of 6 characters"
-                value={formik.values.c_password}
-                onChange={formik.handleChange}
-                error={formik.touched.c_password && Boolean(formik.errors.c_password)}
-                helperText={formik.touched.c_password && formik.errors.c_password}
-                fullWidth
-                InputLabelProps={{ shrink: true }}
+            <TextField
+              className={classes.input}
+              id="c_password"
+              name="c_password"
+              type="password"
+              placeholder="Use a min of 6 characters"
+              value={formik.values.c_password}
+              onChange={formik.handleChange}
+              error={
+                formik.touched.c_password && Boolean(formik.errors.c_password)
+              }
+              helperText={formik.touched.c_password && formik.errors.c_password}
+              fullWidth
+              InputLabelProps={{ shrink: true }}
             />
           </Grid>
 
@@ -124,6 +159,7 @@ export default function PhoneSignUp() {
             </Button>
           </Grid>
         </form>
+        <AlertValidation open={open} onClose={handleClose} title={"Update Password Failed!"} errorResponse={errorResponse} redirectURL = {redirectURL}/>
       </Grid>
     </CardWrapper>
   );
