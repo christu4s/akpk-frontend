@@ -71,7 +71,16 @@ export default function CheckEmail() {
           auth.login(result.data.user);
           document.cookie = "user="+result.data.user.email+"; expires=0; path=/";
           document.cookie = "token="+result.data.token+"; expires=0; path=/";
-          navigate(redirectPath,{state:{result:result.data}});
+          if(result?.data?.new_user_status === 'yes') {
+            navigate('/new-password',{
+              state:{
+                result:result.data,
+              }
+            })
+          }
+          else {
+            navigate(redirectPath,{state:{result:result.data}});
+          }
         } else {
           return false;
         }
