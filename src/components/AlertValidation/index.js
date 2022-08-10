@@ -22,17 +22,17 @@ const useStyles = makeStyles((theme) => ({
   icon: {},
 }));
 
-const getContent = (id, handleNext, errorResponse, redirectURL) => {
+const getContent = (id,title, handleNext, errorResponse, redirectURL) => {
   switch (id) {
     case 0:
-      return <ThirdStep id={id} setId={handleNext} errorResponse={errorResponse} redirectURL={redirectURL} />;
+      return <ThirdStep id={id} title={title} setId={handleNext} errorResponse={errorResponse} redirectURL={redirectURL} />;
       break;
     default:
       break;
   }
 };
 
-export default function AlertValidation({ open, onClose, errorResponse, redirectURL }) {
+export default function AlertValidation({ open, onClose, errorResponse, redirectURL ,title}) {
   const [id, setId] = useState(0);
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
@@ -50,7 +50,7 @@ export default function AlertValidation({ open, onClose, errorResponse, redirect
 
   return (
     <Dialog open={open} onClose={handleCloseUp} fullScreen={fullScreen}>
-      <Box className={classes.dialog}>{getContent(id, handleNext, errorResponse, redirectURL)}</Box>
+      <Box className={classes.dialog}>{getContent(id, title, handleNext, errorResponse, redirectURL)}</Box>
       <Box onClick={handleCloseUp} className={classes.iconContainer}>
         <CloseIcon className={classes.icon} />
       </Box>

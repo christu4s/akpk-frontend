@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ThirdStep({ id, setId, errorResponse, redirectURL }) {
+export default function ThirdStep({ id, setId, title , errorResponse, redirectURL }) {
   const classes = useStyles();
   return (
     <Box className={classes.container}>
@@ -41,7 +41,7 @@ export default function ThirdStep({ id, setId, errorResponse, redirectURL }) {
         <img src={require("../../assets/done.png")} />
       </Box>
       <Box className={classes.margin}>
-        <Typography className={classes.title}>Login Failed!</Typography>
+        <Typography className={classes.title}> {title || "Login Failed!"}</Typography>
       </Box>
       <Box className={classes.margin}>
         <Typography className={classes.subtitle}>
@@ -55,7 +55,7 @@ export default function ThirdStep({ id, setId, errorResponse, redirectURL }) {
           variant="contained"
           fullWidth
         >
-          Login again
+          {title ? "Try Again" : "Login again"}
         </Button>
       </Box>
     </Box>
