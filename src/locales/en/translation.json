@@ -11,6 +11,13 @@
     "info": {
       "info": "Financial Advisory System 2021"
     },
+    "password" : {
+      "update_password" : "Set up your password",
+      "update_password_information" : "To Finalize your Sign Up! please create a password",
+      "input_password": "Password",
+      "input_c_password" : "Repeat Password",
+      "button_password" : "Update Password"
+    },
     "phoneLogin": {
       "email": "email",
       "phone": "Phone",
