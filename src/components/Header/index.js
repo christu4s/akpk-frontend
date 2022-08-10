@@ -8,7 +8,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Header() {
+export default function Header(props) {
   const { t } = useTranslation();
   const classes = useStyles();
   return (
@@ -22,10 +22,10 @@ export default function Header() {
         />
       </Grid>
       <Grid item xs={12}>
-        <Typography variant="h2">{t("login.login")}</Typography>
+        <Typography variant="h2">{props.title || t("login.login")}</Typography>
       </Grid>
       <Grid item xs={12}>
-        <Typography variant="body1">{t("login.information")}</Typography>
+        <Typography variant="body1">{props.subtitle || t("login.information")}</Typography>
       </Grid>
     </>
   );
