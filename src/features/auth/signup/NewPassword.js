@@ -40,8 +40,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const validationSchema = yup.object({
-  phone: yup.string().required("Phone is required"),
-  // .matches("^(+?6?01)[0-46-9]-*[0-9]{7,8}$", "insert a valid phone number"),
+  password: yup.string().required("Password is required").min(6,'Password Must be a minumum of 6 caracters'),
+  c_password: yup.string().required("Password confirmation is required").oneOf([yup.ref('password'), null], 'Passwords must match'),
 });
 
 export default function PhoneSignUp() {
@@ -50,7 +50,8 @@ export default function PhoneSignUp() {
   const navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
-      phone: 0,
+      password: '',
+      c_password : '',
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
@@ -70,57 +71,56 @@ export default function PhoneSignUp() {
     <CardWrapper>
       <Grid container spacing={2}>
         <form onSubmit={formik.handleSubmit} className={classes.form}>
-          <Header />
-          <Grid item xs={12}>
+          <Header
+            title={t('password.update_password')}
+            subtitle={t('password.update_password_information')}
+          />
+          <Grid item padding={2} xs={12}>
             <Typography className={classes.inputLabel} variant="subtitle1">
-              {t("phoneLogin.phone")}
+              {t("password.input_password")}
             </Typography>
-            <InputMask
-              className={classes.input}
-              mask={"+60 99999999999"}
-              maskChar={null}
-              // placeholder="+60 12323344585"
-              id="phone"
-              name="phone"
-              type="phone"
-              value={formik.values.phone}
-              onChange={formik.handleChange}
-              error={formik.touched.phone && Boolean(formik.errors.phone)}
-              helperText={formik.touched.phone && formik.errors.phone}
-            >
-              {(inputProps) => (
-                <TextField
-                  {...inputProps}
-                  type="tel"
-                  disableUnderline
-                  fullWidth
-                  InputLabelProps={{ shrink: true }}
-                />
-              )}
-            </InputMask>
-          </Grid>
-
-          <Grid item xs={12}>
-            <FormControlLabel
-              label={t("phoneLogin.remember")}
-              className={classes.checkbox}
-              control={
-                <Checkbox
-                  sx={{
-                    color: "#D0D5DD",
-                  }}
-                />
-              }
+            <TextField 
+                className={classes.input}
+                id="password"
+                name="password"
+                type="password"
+                placeholder="Use a min of 6 characters"
+                value={formik.values.password}
+                onChange={formik.handleChange}
+                error={formik.touched.password && Boolean(formik.errors.password)}
+                helperText={formik.touched.password && formik.errors.password}
+                fullWidth
+                InputLabelProps={{ shrink: true }}
             />
           </Grid>
-          <Grid item xs={12}>
+
+          <Grid item padding={2} xs={12}>
+            <Typography className={classes.inputLabel} variant="subtitle1">
+              {t("password.input_c_password")}
+            </Typography>
+            <TextField 
+                className={classes.input}
+                id="c_password"
+                name="c_password"
+                type="password"
+                placeholder="Use a min of 6 characters"
+                value={formik.values.c_password}
+                onChange={formik.handleChange}
+                error={formik.touched.c_password && Boolean(formik.errors.c_password)}
+                helperText={formik.touched.c_password && formik.errors.c_password}
+                fullWidth
+                InputLabelProps={{ shrink: true }}
+            />
+          </Grid>
+
+          <Grid item padding={2} xs={12}>
             <Button
               className={classes.buttonContained}
               fullWidth
               variant="contained"
               type="submit"
             >
-              {t("phoneLogin.log")}
+              {t("password.button_password")}
             </Button>
           </Grid>
         </form>
