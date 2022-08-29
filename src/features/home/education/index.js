@@ -25,9 +25,16 @@ export default function Education() {
   const classes = useStyles();
   const navigate = useNavigate();
   const [connected, setConnected] = useState(false);
+  // const navigateClientLocation = event => {
+  //     window.open('https://power.akpk.org.my/', '_blank', 'noopener,noreferrer');
+  // }
+
   const navigateClientLocation = event => {
-      window.open('https://power.akpk.org.my/', '_blank', 'noopener,noreferrer');
+    if(connected === false) {
+    window.open('http://10.250.1.121/osp-server/api/feconnect', '_self', 'noopener,noreferrer');
+    } 
   }
+  
   return (
     <DashboardLayout>
       <Grid container spacing={2} className={classes.margin}>
