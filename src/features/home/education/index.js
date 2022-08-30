@@ -1,9 +1,9 @@
 import { Grid, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import BlueCard from "../../../components/BlueCard";
 import ChartCard from "../../../components/ChartCard";
-import ParticipationCard from "../../../components/ParticipationCard";
+import  {ParticipationCard, CourseCard} from "../../../components/ParticipationCard";
 import DashboardLayout from "../../../Layouts/dashboardLayout";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from '../../../components/Auth';
@@ -27,23 +27,19 @@ export default function Education() {
   const navigate = useNavigate();
   const [connected, setConnected] = useState(false);
   const {token, userInfo, user, setUserInfo} = useAuth();
-  // const navigateClientLocation = event => {
-  //     window.open('https://power.akpk.org.my/', '_blank', 'noopener,noreferrer');
-  // }
-  console.log('i am new user',userInfo);
- // setConnected(userInfo.fe_connected?userInfo.fe_connected:false);
+  const [data, setData] = useState({});
+  const [courses, setCourses] = useState({});
  
-   const navigateClientLocation = event => {
+  console.log('i am new user',userInfo);
+  const navigateClientLocation = event => {
     if(connected === false) {
        window.open('http://10.250.1.121/osp-server/api/feconnect', '_self', 'noopener,noreferrer');
     } 
   }
-
+  const config = {
+    headers: { Authorization: `Bearer ${token}` }
+  };
  const navigateClientLocationDisconnect = event => {
-    
-    const config = {
-      headers: { Authorization: `Bearer ${token}` }
-    };
     axios.get(`http://10.250.1.121/osp-server/api/disconnect_fe_portal`,config)
     .then(result => {
       console.log('result', result);
@@ -54,6 +50,14 @@ export default function Education() {
       }
     }) 
  }
+
+ useEffect(() => {
+  axios.get(`http://10.250.1.121/osp-server/api/list_fe_dashboard_items`,config)
+   .then(result => {
+    setCourses(result.data.response.claim.Courses);
+    console.log('iam ok ',result.data.response.claim);
+    }).catch(error => { return error; });
+}, [JSON.stringify(config)]);
   
   return (
     <DashboardLayout>
@@ -114,7 +118,13 @@ export default function Education() {
               My Courses
             </Typography>
           </Grid>
-          <Grid item xs={12} sm={6} md={4} lg={3} xl={3}>
+          {Object.values(courses).map(({ courseTitle, courseDate }) => (
+            <Grid item xs={12} sm={6} md={4} lg={3} xl={3}>
+              <CourseCard course_title={{courseTitle}} course_date={{courseDate}} />
+            </Grid>
+           ))}
+          
+          {/* <Grid item xs={12} sm={6} md={4} lg={3} xl={3}>
             <ParticipationCard />
           </Grid>
           <Grid item xs={12} sm={6} md={4} lg={3} xl={3}>
@@ -122,10 +132,7 @@ export default function Education() {
           </Grid>
           <Grid item xs={12} sm={6} md={4} lg={3} xl={3}>
             <ParticipationCard />
-          </Grid>
-          <Grid item xs={12} sm={6} md={4} lg={3} xl={3}>
-            <ParticipationCard />
-          </Grid>
+          </Grid> */}
         </Grid>
       </Grid>
     </DashboardLayout>

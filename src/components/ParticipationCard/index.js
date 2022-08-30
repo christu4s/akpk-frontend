@@ -50,7 +50,46 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ParticipationCard() {
+export function ParticipationCard() {
+  const classes = useStyles();
+  return (
+    <Box className={classes.cardContainer}>
+      <Grid container spacing={2}>
+        <Grid item xs={12} className={classes.imgContainer}>
+          <img src={require("../../assets/participation/1.png")} />
+        </Grid>
+        <Grid item xs={12}>
+          <Typography className={classes.title}>
+            Getting Started
+            <ArrowForwardIosIcon className={classes.arrowIcon} />
+          </Typography>
+        </Grid>
+        <Grid item xs={5} justifyContent="flex-start">
+          <Typography className={classes.iconWrapper}>
+            <WatchLaterIcon className={classes.watchIcon} />
+            5h 30 min
+          </Typography>
+        </Grid>
+        <Grid item xs={2}></Grid>
+        <Grid item xs={5} justifyContent="flex-end">
+          <Typography>79 Lectures</Typography>
+        </Grid>
+        <Grid item xs={8} justifyContent="flex-start" alignContent="flex-start">
+          <Typography className={classes.iconWrapper}>
+            <StarIcon className={classes.starIcon} /> 4.9 (322 Reviews)
+          </Typography>
+        </Grid>
+        <Grid item xs={4} justifyContent="flex-end">
+          <Typography className={classes.iconWrapper}>
+            <PeopleAltIcon className={classes.peopleIcon} /> 1.2K
+          </Typography>
+        </Grid>
+      </Grid>
+    </Box>
+  );
+}
+
+export  function CourseCard() {
   const classes = useStyles();
   return (
     <Box className={classes.cardContainer}>
