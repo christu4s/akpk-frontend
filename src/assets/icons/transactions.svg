@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+  <g id="Group_70922" data-name="Group 70922" transform="translate(-144 -363)">
+    <g id="Ellipse_1" data-name="Ellipse 1" transform="translate(144 363)" fill="#fcfcfd" stroke="#06bfd2" stroke-width="1">
+      <circle cx="32" cy="32" r="32" stroke="none"/>
+      <circle cx="32" cy="32" r="31.5" fill="none"/>
+    </g>
+    <path id="Icon_material-compare-arrows" data-name="Icon material-compare-arrows" d="M36,27.94H20.79V32.28H36v6.511l8.66-8.681L36,21.429Zm-22.289-.7V20.727H28.928V16.387H13.715V9.876l-8.66,8.681Z" transform="translate(141.215 395.372) rotate(-45)" fill="#06bfd2"/>
+  </g>
+</svg>

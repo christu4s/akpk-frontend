@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+  <g id="Group_70920" data-name="Group 70920" transform="translate(-144 -363)">
+    <g id="Ellipse_1" data-name="Ellipse 1" transform="translate(144 363)" fill="#fcfcfd" stroke="#06bfd2" stroke-width="1">
+      <circle cx="32" cy="32" r="32" stroke="none"/>
+      <circle cx="32" cy="32" r="31.5" fill="none"/>
+    </g>
+    <path id="Icon_awesome-hands-helping" data-name="Icon awesome-hands-helping" d="M30.5,12H21v3.5a4.5,4.5,0,0,1-9,0V7.9L7.944,10.338A3.991,3.991,0,0,0,6,13.763v2.956L1,19.606a2,2,0,0,0-.731,2.731l5,8.662A2,2,0,0,0,8,31.731L14.462,28H23a4,4,0,0,0,4-4h1a2,2,0,0,0,2-2V18h.5A1.5,1.5,0,0,0,32,16.5v-3A1.5,1.5,0,0,0,30.5,12Zm9.231-2.337L34.731,1A2,2,0,0,0,32,.269L25.537,4H19.15a4.03,4.03,0,0,0-2.119.606L14.937,5.913A1.987,1.987,0,0,0,14,7.606V15.5a2.5,2.5,0,0,0,5,0V10H30.5A3.5,3.5,0,0,1,34,13.5v1.781l5-2.887a2,2,0,0,0,.731-2.731Z" transform="translate(156.002 379)" fill="#06bfd2"/>
+  </g>
+</svg>
