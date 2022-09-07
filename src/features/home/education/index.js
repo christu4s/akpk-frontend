@@ -45,7 +45,8 @@ export default function Education() {
   const {token, userInfo, user, setUserInfo} = useAuth();
   const [data, setData] = useState({});
   const [courses, setCourses] = useState({});
- 
+  const { participationLearning, participationEvent, participationResearch, participationPublication, contributionDownloads, contributionLikes, contributionShares, transactionLearning, transactionEvent, transactionPublication, badgeLogin, badgeLearning, badgeTest, badgeCommunication, achievementPoints, achievementLevel} = data || {};
+  
   console.log('i am new user',userInfo);
   const navigateClientLocation = event => {
     if(connected === false) {
@@ -56,7 +57,7 @@ export default function Education() {
     headers: { Authorization: `Bearer ${token}` }
   };
  const navigateClientLocationDisconnect = event => {
-    axios.get(`http://10.250.1.121/osp-server/api/disconnect_fe_portal`,config)
+    axios.get(`disconnect_fe_portal`,config)
     .then(result => {
       console.log('result', result);
       if(result.data.status == true) {
@@ -67,11 +68,19 @@ export default function Education() {
     }) 
  }
 
+ const viewMyCourses = () => {
+  window.open('https://fpxuat.akpk.org.my:8443/eLearning/Courses/MyCourses', '_target', 'noopener, noreferrer');
+ }
+
+ const viewPurchaseHostory = () => {
+  window.open('https://fpxuat.akpk.org.my:8443/Commerce/Cart/PurchaseHistory', '_target', 'noopener, noreferrer');
+ }
  useEffect(() => {
-  axios.get(`http://10.250.1.121/osp-server/api/list_fe_dashboard_items`,config)
+  axios.get(`list_fe_dashboard_items`,config)
    .then(result => {
-    setCourses(result.data.response.claim.Courses);
     console.log('iam ok ',result.data.response.claim);
+    setData(result.data.response.claim);
+    setCourses(result.data.response.claim.Courses);
     }).catch(error => { return error; });
 }, [JSON.stringify(config)]);
   
@@ -84,10 +93,10 @@ export default function Education() {
             color="rgba(15, 90, 150, 0.6)"
             image="education"
             text="AKPK provides financial education programmes, materials and advisory on these matters relating to money management and proper use of credit; while offering modules that cater for specific financial needs in four (4) stages of life."
-            // connected={userInfo && userInfo.fe_connected}
-            // handleConnect={() => navigateClientLocation()}
+             connected={userInfo && userInfo.fe_connected}
+             handleConnect={() => navigateClientLocation()}
             // //handleConnect={() => setConnected(true)}
-            // handleDisonnect={() => navigateClientLocationDisconnect()}
+             handleDisonnect={() => navigateClientLocationDisconnect()}
           />
         </Grid>
         <div className={classes.wrapper}>
@@ -98,19 +107,19 @@ export default function Education() {
               icon='participation'
               content={[{
                 title: 'Learning',
-                value: '1'
+                value: participationLearning
               },
               {
                 title: 'Event',
-                value: '1'
+                value:  ''+participationEvent
               },
               {
                 title: 'Research',
-                value: '1'
+                value: ''+participationResearch
               },
               {
                 title: 'Publication',
-                value: '1'
+                value: ''+participationPublication
               },
             ]}
             />
@@ -121,15 +130,15 @@ export default function Education() {
               icon='contributions'
               content={[{
                 title: 'Downloads',
-                value: '1'
+                value: ''+contributionDownloads
               },
               {
                 title: 'Likes',
-                value: '1'
+                value: ''+contributionLikes
               },
               {
                 title: 'Shares',
-                value: '1'
+                value: ''+contributionShares
               },
             ]}
             />
@@ -138,22 +147,22 @@ export default function Education() {
             <DmpCard
               title='My Transactions'
               icon='transactions'
-              Button={<button className={classes.button}>View transactions</button>}
+              Button={<button className={classes.button} onClick={viewPurchaseHostory}>View transactions</button>}
               content={[{
                 title: 'Learning',
-                value: 'RM 0.00'
+                value: 'RM '+ transactionLearning
               },
               {
                 title: 'Event',
-                value: 'RM 0.00'
+                value: 'RM ' + transactionEvent
               },
               {
                 title: 'Publication',
-                value: 'RM 0.00'
+                value: 'RM ' + transactionPublication
               },
               {
                 title: 'Publication',
-                value: 'RM 0.00'
+                value: 'RM ' + participationPublication
               },
             ]}
             />
@@ -165,19 +174,19 @@ export default function Education() {
               Button={<button className={classes.button}>View badges</button>}
               content={[{
                 title: 'Login Badge',
-                value: '0'
+                value: ''+badgeLogin
               },
               {
                 title: 'Learning Badge',
-                value: '0'
+                value: ''+badgeLearning
               },
               {
                 title: 'Test Badge',
-                value: '0'
+                value: ''+badgeTest
               },
               {
                 title: 'Communication Badge',
-                value: '0'
+                value: ''+badgeCommunication
               },
             ]}
             />
@@ -189,11 +198,11 @@ export default function Education() {
               Button={<button className={classes.button}>View point</button>}
                content={[{
                 title: 'Accumulated Points',
-                value: '0'
+                value: ''+achievementPoints
               },
               {
                 title: 'Level',
-                value: '0'
+                value: ''+achievementLevel
               },
               
             ]}
@@ -213,10 +222,8 @@ export default function Education() {
             <DmpCard
               title='My Courses'
               icon='courses'
-              Button={<button className={classes.button}>View courses</button>}
-              content={[{
-                title: '1. Templat Praktikal Pengurusan Kewangan PKS - 30/08/2022'
-              }]}
+              Button={<button className={classes.button} onClick={viewMyCourses}>View courses</button>}
+              content={[{courses}]}
             />
           </Grid>
          </Grid>

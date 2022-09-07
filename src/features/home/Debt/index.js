@@ -103,7 +103,7 @@ export default function Debt() {
     headers: { Authorization: `Bearer ${token}` }
   };
   const getApplicationUrl = () => {
-      axios.get(`http://10.250.1.121/osp-server/api/get_application_url`,config)
+      axios.get(`get_application_url`,config)
      .then(result => {
        if(result.data.response.application_url) {
          window.open(result.data.response.application_url+'/LoginCode='+result.data.response.login_code+'&CustomerID='+result.data.CustomerID, '_self', 'noopener,noreferrer');
@@ -124,7 +124,7 @@ export default function Debt() {
       const config = {
         headers: { Authorization: `Bearer ${token}` }
       };
-       axios.get(`http://10.250.1.121/osp-server/api/disconnect_customer_portal`,config)
+       axios.get(`disconnect_customer_portal`,config)
       .then(result => {
         if(result.data.status == true) {
           // setConnected(false);
@@ -136,7 +136,7 @@ export default function Debt() {
   }
   
   useEffect(() => {
-    axios.get(`http://10.250.1.121/osp-server/api/get_osp_customer_details`,config)
+    axios.get(`get_osp_customer_details`,config)
      .then(result => {
        setData(result.data.response);
       }).catch(error => { return error; });

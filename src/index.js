@@ -7,6 +7,9 @@ import App from "./App";
 import theme from "./theme";
 import { I18nextProvider } from "react-i18next";
 import i18n from "./i18n";
+import axios from "axios";
+
+axios.defaults.baseURL = 'http://10.250.1.121/osp-server/api/';
 
 ReactDOM.render(
   <React.StrictMode>
