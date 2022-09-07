@@ -47,8 +47,8 @@ export default function Education() {
   const [connected, setConnected] = useState(false);
   const {token, userInfo, user, setUserInfo} = useAuth();
   const [data, setData] = useState({});
-  const [courses, setCourses] = useState({});
-  const { participationLearning, participationEvent, participationResearch, participationPublication, contributionDownloads, contributionLikes, contributionShares, transactionLearning, transactionEvent, transactionPublication, badgeLogin, badgeLearning, badgeTest, badgeCommunication, achievementPoints, achievementLevel} = data || {};
+  // const [courses, setCourses] = useState({});
+  const { participationLearning, participationEvent, participationResearch, participationPublication, contributionDownloads, contributionLikes, contributionShares, transactionLearning, transactionEvent, transactionPublication, badgeLogin, badgeLearning, badgeTest, badgeCommunication, achievementPoints, achievementLevel, Courses = []} = data || {};
   
   console.log('i am new user',userInfo);
   const navigateClientLocation = event => {
@@ -81,10 +81,10 @@ export default function Education() {
  useEffect(() => {
   axios.get(`list_fe_dashboard_items`,config)
    .then(result => {
-    console.log('iam ok ',result.data.response.claim);
+    // console.log('iam ok ',result.data.response.claim);
     setData(result.data.response.claim);
-    setCourses(data.Courses);
-    console.log('coursesnew2',JSON.stringify(courses));
+    // setCourses(result.data.response.claim);
+    // console.log('coursesnew2',JSON.stringify(courses));
     }).catch(error => { return error; });
 }, [JSON.stringify(config)]);
   
@@ -115,11 +115,11 @@ export default function Education() {
               },
               {
                 title: 'Event',
-                value:  ''+participationEvent
+                value:  participationEvent
               },
               {
                 title: 'Research',
-                value: ''+participationResearch
+                value: participationResearch
               },
               {
                 title: 'Publication',
@@ -186,11 +186,11 @@ export default function Education() {
               },
               {
                 title: 'Test Badge',
-                value: ''+badgeTest
+                value: badgeTest
               },
               {
                 title: 'Communication Badge',
-                value: ''+badgeCommunication
+                value: badgeCommunication
               },
             ]}
             />
@@ -202,11 +202,11 @@ export default function Education() {
               Button={<button className={classes.button}>View point</button>}
                content={[{
                 title: 'Accumulated Points',
-                value: ''+achievementPoints
+                value: achievementPoints
               },
               {
                 title: 'Level',
-                value: ''+achievementLevel
+                value: achievementLevel
               },
               
             ]}
@@ -227,8 +227,12 @@ export default function Education() {
               title='My Courses'
               icon='courses'
               Button={<button className={classes.button} onClick={viewMyCourses}>View courses</button>}
-              content={[{courses}]}
-            />
+              // content={Courses.map((course=>  ({title: course.courseTitle + ': '+ course.courseDate}) ))}
+            >
+            <ol>
+              {Courses.map((course, index)=> <li key={index}>{course.courseTitle}: {course.courseDate}</li> )} 
+             </ol>
+            </DmpCard>
           </Grid>
          </Grid>
         </div>

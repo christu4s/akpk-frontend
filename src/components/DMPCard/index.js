@@ -73,7 +73,7 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-const DmpCard = ({title, icon, Button, content}) => {
+const DmpCard = ({title, icon, Button, content, children}) => {
     const styles= useStyles();
   return (
     <div className={styles.cardWrapper}>
@@ -90,11 +90,10 @@ const DmpCard = ({title, icon, Button, content}) => {
     </div>
     <hr className={styles.divider}/>
     <div className={styles.content}>
-        {
-            content?.map(({title, value}) => {
+        {children ? children : content?.map(({title, value}) => {
                 return <div className={styles.element}>
                     <p>{title}</p>
-                    {value && <span>{value}</span>}
+                    <span>{value || 0}</span>
                 </div>
             })
         }
