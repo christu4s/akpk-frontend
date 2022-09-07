@@ -83,6 +83,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Debt() {
+  const ospConnectUrl = 'http://10.250.1.130:2800/customerindex.html#/OAuth/Auth/clientID=AKPK_OSP';
   const classes = useStyles();
   const [connected, setConnected] = useState(false);
   const {token, userInfo, user, setUserInfo} = useAuth();
@@ -116,7 +117,7 @@ export default function Debt() {
   }
   const navigateClientLocation = event => {
     if(connected === false) {
-    window.open('http://10.250.1.130:2800/customerindex.html#/OAuth/Auth/clientID=AKPK_OSP', '_self', 'noopener,noreferrer');
+    window.open(ospConnectUrl, '_self', 'noopener,noreferrer');
     // setUserInfo({...userInfo, cp_connected: true});
     // setConnected(true);
     } 

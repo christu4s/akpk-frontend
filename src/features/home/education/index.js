@@ -39,6 +39,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Education() {
+  const feconnectUrl = 'http://10.250.1.121/osp-server/api/feconnect';
+  const myCourseUrl = 'https://fpxuat.akpk.org.my:8443/eLearning/Courses/MyCourses';
+  const purchaseHistoryUrl = 'https://fpxuat.akpk.org.my:8443/Commerce/Cart/PurchaseHistory';
   const classes = useStyles();
   const navigate = useNavigate();
   const [connected, setConnected] = useState(false);
@@ -50,7 +53,7 @@ export default function Education() {
   console.log('i am new user',userInfo);
   const navigateClientLocation = event => {
     if(connected === false) {
-       window.open('http://10.250.1.121/osp-server/api/feconnect', '_self', 'noopener,noreferrer');
+       window.open(feconnectUrl, '_self', 'noopener,noreferrer');
     } 
   }
   const config = {
@@ -69,18 +72,19 @@ export default function Education() {
  }
 
  const viewMyCourses = () => {
-  window.open('https://fpxuat.akpk.org.my:8443/eLearning/Courses/MyCourses', '_target', 'noopener, noreferrer');
+  window.open(myCourseUrl, '_target', 'noopener, noreferrer');
  }
 
  const viewPurchaseHostory = () => {
-  window.open('https://fpxuat.akpk.org.my:8443/Commerce/Cart/PurchaseHistory', '_target', 'noopener, noreferrer');
+  window.open(purchaseHistoryUrl, '_target', 'noopener, noreferrer');
  }
  useEffect(() => {
   axios.get(`list_fe_dashboard_items`,config)
    .then(result => {
     console.log('iam ok ',result.data.response.claim);
     setData(result.data.response.claim);
-    setCourses(result.data.response.claim.Courses);
+    setCourses(data.Courses);
+    console.log('coursesnew2',JSON.stringify(courses));
     }).catch(error => { return error; });
 }, [JSON.stringify(config)]);
   
