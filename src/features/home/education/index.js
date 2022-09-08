@@ -47,6 +47,7 @@ export default function Education() {
   const [connected, setConnected] = useState(false);
   const {token, userInfo, user, setUserInfo} = useAuth();
   const [data, setData] = useState({});
+  const currency = 'RM ';
   // const [courses, setCourses] = useState({});
   const { participationLearning, participationEvent, participationResearch, participationPublication, contributionDownloads, contributionLikes, contributionShares, transactionLearning, transactionEvent, transactionPublication, badgeLogin, badgeLearning, badgeTest, badgeCommunication, achievementPoints, achievementLevel, Courses = []} = data || {};
   
@@ -154,19 +155,19 @@ export default function Education() {
               Button={<button className={classes.button} onClick={viewPurchaseHostory}>View transactions</button>}
               content={[{
                 title: 'Learning',
-                value: transactionLearning
+                value:  transactionLearning ? currency + transactionLearning : currency + 0
               },
               {
                 title: 'Event',
-                value: transactionEvent
+                value: transactionEvent ? currency + transactionEvent : currency + 0
               },
               {
                 title: 'Publication',
-                value:  transactionPublication
+                value:  transactionPublication ? currency +transactionPublication : currency + 0
               },
               {
                 title: 'Publication',
-                value:  participationPublication
+                value:  participationPublication ? currency +participationPublication : currency + 0
               },
             ]}
             />
