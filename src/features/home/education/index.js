@@ -123,7 +123,7 @@ export default function Education() {
               },
               {
                 title: 'Publication',
-                value: ''+participationPublication
+                value: participationPublication
               },
             ]}
             />
@@ -134,15 +134,15 @@ export default function Education() {
               icon='contributions'
               content={[{
                 title: 'Downloads',
-                value: ''+contributionDownloads
+                value: contributionDownloads
               },
               {
                 title: 'Likes',
-                value: ''+contributionLikes
+                value: contributionLikes
               },
               {
                 title: 'Shares',
-                value: ''+contributionShares
+                value: contributionShares
               },
             ]}
             />
@@ -154,19 +154,19 @@ export default function Education() {
               Button={<button className={classes.button} onClick={viewPurchaseHostory}>View transactions</button>}
               content={[{
                 title: 'Learning',
-                value: 'RM '+ transactionLearning
+                value: transactionLearning
               },
               {
                 title: 'Event',
-                value: 'RM ' + transactionEvent
+                value: transactionEvent
               },
               {
                 title: 'Publication',
-                value: 'RM ' + transactionPublication
+                value:  transactionPublication
               },
               {
                 title: 'Publication',
-                value: 'RM ' + participationPublication
+                value:  participationPublication
               },
             ]}
             />
@@ -178,11 +178,11 @@ export default function Education() {
               Button={<button className={classes.button}>View badges</button>}
               content={[{
                 title: 'Login Badge',
-                value: ''+badgeLogin
+                value: badgeLogin
               },
               {
                 title: 'Learning Badge',
-                value: ''+badgeLearning
+                value: badgeLearning
               },
               {
                 title: 'Test Badge',
