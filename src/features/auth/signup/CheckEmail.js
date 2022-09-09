@@ -65,7 +65,7 @@ export default function CheckEmail() {
   const redirectPath = state ? '/home': '/';
   const OTPSubmit = event => {
      event.preventDefault(); //  prevent page refresh
-     axios.post(`http://10.250.1.121/osp-server/api/verify_opt_email`,{ email: state.email, otp: OTP})
+     axios.post(`verify_opt_email`,{ email: state.email, otp: OTP})
       .then(result => {
         if(result.data.success && result.data.success === true) {
           auth.login(result.data.user);

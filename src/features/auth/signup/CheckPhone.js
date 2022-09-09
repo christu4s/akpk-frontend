@@ -64,7 +64,7 @@ export default function CheckPhone() {
   const OTPSubmit = event => {
     event.preventDefault(); //  prevent page refresh
     
-    axios.post(`http://10.250.1.121/osp-server/api/verify_opt_contact_number`,{ contact_number: state.mobile_phone.replace(/[^a-zA-Z0-9 ]/g, "").replace(/ /g, ""), otp: OTP})
+    axios.post(`verify_opt_contact_number`,{ contact_number: state.mobile_phone.replace(/[^a-zA-Z0-9 ]/g, "").replace(/ /g, ""), otp: OTP})
      .then(result => {
        if(result.data.success && result.data.success === true) {
         auth.login(result.data.user);

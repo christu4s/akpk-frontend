@@ -88,7 +88,7 @@ export default function EmailSignUp() {
   }
   const handleSubmit = event => {
     event.preventDefault(); //  prevent page refresh
-    axios.post(`http://10.250.1.121/osp-server/api/signup_email`,{ email: formik.values.email})
+    axios.post(`signup_email`,{ email: formik.values.email})
       .then(result => {
         console.log(result);
         if(result.data.status && result.data.status === 'SUCCESS') {

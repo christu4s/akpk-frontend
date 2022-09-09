@@ -74,7 +74,7 @@ export default function PhoneSignUp() {
     validationSchema: validationSchema,
     onSubmit: (values) => {
       axios
-        .post(`http://10.250.1.121/osp-server/api/update_password`,
+        .post(`update_password`,
         {
           password: formik.values.password,
           c_password: formik.values.c_password,

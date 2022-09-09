@@ -45,7 +45,7 @@ export const AuthProvider = ({children}) => {
     const config = {
       headers: { Authorization: `Bearer ${token}` }
     };
-     axios.post(`http://10.250.1.121/osp-server/api/user_info`,null,config)
+     axios.post(`user_info`,null,config)
       .then(result => {
         console.log('result auth', result.data);
         if(result.data) setUserInfo(result.data.user);

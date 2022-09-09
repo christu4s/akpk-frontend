@@ -98,7 +98,7 @@ export default function EmailLogin() {
     } else {
       var dataInput = {contact_number:formik.values.phone.replace(/[^a-zA-Z0-9 ]/g, "").replace(/ /g, ""), password:formik.values.password};
     }
-    axios.post(`http://10.250.1.121/osp-server/api/login`, dataInput)
+    axios.post(`login`, dataInput)
       .then(result => {
         if(result.data.status && result.data.status === true) {
          
