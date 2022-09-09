@@ -87,19 +87,9 @@ export default function Debt() {
   const classes = useStyles();
   const [connected, setConnected] = useState(false);
   const {token, userInfo, user, setUserInfo} = useAuth();
-  // const [cpToken, setCpToken] = useState(null);
-  // const [cpCustomerId, setCpCustomerId] = useState(null);
-  // const [cpRefreshToken, setCpRefreshToken] = useState(null);
-  console.log('userInfo', userInfo, user);
   const [data, setData] = useState({});
   const { DMPStatus, DMPReferenceNumber,CurrentPayment, PaymentInArrears, LastPaymentDate } = data || {};
-  // const [dmpStatus, setDmpStatus] = useState(null);
-  // const [dmpReferenceNumber, setDmpReferenceNumber] = useState(null);
-  // const [currentPayment, setCurrentPayment] = useState(null);
-  // const [paymentInArrears, setPaymentInArrears] = useState(null);
-  // const [lastPaymentDate, setLastPaymentDate] = useState(null);
-  
-  
+    
   const config = {
     headers: { Authorization: `Bearer ${token}` }
   };
@@ -118,23 +108,29 @@ export default function Debt() {
   const navigateClientLocation = event => {
     if(connected === false) {
     window.open(ospConnectUrl, '_self', 'noopener,noreferrer');
-    // setUserInfo({...userInfo, cp_connected: true});
-    // setConnected(true);
     } 
-     else {
-      const config = {
-        headers: { Authorization: `Bearer ${token}` }
-      };
-       axios.get(`disconnect_customer_portal`,config)
-      .then(result => {
-        if(result.data.status == true) {
-          // setConnected(false);
-          setUserInfo({...userInfo, cp_connected: false});
-          // setConnected(false);
-        }
-      }) 
-    }
+    //  else {
+    //   const config = {
+    //     headers: { Authorization: `Bearer ${token}` }
+    //   };
+    //    axios.get(`disconnect_customer_portal`,config)
+    //   .then(result => {
+    //     if(result.data.status == true) {
+    //       setUserInfo({...userInfo, cp_connected: false});
+    //      }
+    //   }) 
+    // }
   }
+
+ const navigateClientLocationDisconnect = event => {
+    axios.get(`disconnect_fe_portal`,config)
+    .then(result => {
+      console.log('result', result);
+      if(result.data.status == true) {
+         setUserInfo({...userInfo, cp_connected: false});
+       }
+    }) 
+ }
   
   useEffect(() => {
     axios.get(`get_osp_customer_details`,config)
@@ -154,8 +150,7 @@ export default function Debt() {
             color="rgba(14, 84, 144, 0.6)"
             connected={userInfo && userInfo.cp_connected}
             handleConnect={() => navigateClientLocation()}
-            //handleConnect={() => setConnected(true)}
-            handleDisonnect={() => navigateClientLocation()}
+            handleDisonnect={() => navigateClientLocationDisconnect()}
           />
         </Grid>
         <Grid container item xs={12}>

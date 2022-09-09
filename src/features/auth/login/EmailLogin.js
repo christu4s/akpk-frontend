@@ -101,7 +101,6 @@ export default function EmailLogin() {
     axios.post(`login`, dataInput)
       .then(result => {
         if(result.data.status && result.data.status === true) {
-         
           document.cookie = "token="+result.data.token+"; expires=0; path=/";
           if(result.data.user.email) {
             auth.login(result.data.user);

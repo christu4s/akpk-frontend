@@ -48,7 +48,6 @@ export default function Education() {
   const {token, userInfo, user, setUserInfo} = useAuth();
   const [data, setData] = useState({});
   const currency = 'RM ';
-  // const [courses, setCourses] = useState({});
   const { participationLearning, participationEvent, participationResearch, participationPublication, contributionDownloads, contributionLikes, contributionShares, transactionLearning, transactionEvent, transactionPublication, badgeLogin, badgeLearning, badgeTest, badgeCommunication, achievementPoints, achievementLevel, Courses = []} = data || {};
   
   console.log('i am new user',userInfo);
@@ -65,10 +64,8 @@ export default function Education() {
     .then(result => {
       console.log('result', result);
       if(result.data.status == true) {
-        // setConnected(false);
-        setUserInfo({...userInfo, fe_connected: false});
-        // setConnected(false);
-      }
+         setUserInfo({...userInfo, fe_connected: false});
+       }
     }) 
  }
 
@@ -82,10 +79,7 @@ export default function Education() {
  useEffect(() => {
   axios.get(`list_fe_dashboard_items`,config)
    .then(result => {
-    // console.log('iam ok ',result.data.response.claim);
     setData(result.data.response.claim);
-    // setCourses(result.data.response.claim);
-    // console.log('coursesnew2',JSON.stringify(courses));
     }).catch(error => { return error; });
 }, [JSON.stringify(config)]);
   
@@ -100,7 +94,6 @@ export default function Education() {
             text="AKPK provides financial education programmes, materials and advisory on these matters relating to money management and proper use of credit; while offering modules that cater for specific financial needs in four (4) stages of life."
              connected={userInfo && userInfo.fe_connected}
              handleConnect={() => navigateClientLocation()}
-            // //handleConnect={() => setConnected(true)}
              handleDisonnect={() => navigateClientLocationDisconnect()}
           />
         </Grid>
@@ -228,7 +221,6 @@ export default function Education() {
               title='My Courses'
               icon='courses'
               Button={<button className={classes.button} onClick={viewMyCourses}>View courses</button>}
-              // content={Courses.map((course=>  ({title: course.courseTitle + ': '+ course.courseDate}) ))}
             >
             <ol>
               {Courses.map((course, index)=> <li key={index}>{course.courseTitle}: {course.courseDate}</li> )} 
