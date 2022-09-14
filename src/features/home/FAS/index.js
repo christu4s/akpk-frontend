@@ -21,6 +21,8 @@ import DashboardLayout from "../../../Layouts/dashboardLayout";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import { BiSearch } from "react-icons/bi";
 import { CheckBox } from "@mui/icons-material";
+import { useAuth } from '../../../components/Auth';
+
 const useStyles = makeStyles((theme) => ({
   margin: {
     margin: "20px 20px 5px 35px !important",
@@ -171,10 +173,15 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function FAS() {
+  const fasConnectUrl = 'http://10.250.1.121/osp-server/api/connect_financial_advisory';
   const classes = useStyles();
-  const [connected, setConnected] = useState(false);
+  const [fa_connected, setConnected] = useState(false);
+  const {token, userInfo, user, setUserInfo} = useAuth();
   const navigateClientLocation = event => {
-    window.open('https://mybijakkewangan.akpk.org.my/', '_blank', 'noopener,noreferrer');
+    window.open(fasConnectUrl, '_self', 'noopener,noreferrer');
+  }
+  const navigateClientLocationDisconnect = event => {
+    return false;
   }
   return (
     <DashboardLayout>
@@ -185,10 +192,10 @@ export default function FAS() {
             image="advisory"
             text="AKPK offers one-to-one advisory on managing personal finances wisely―from budgeting and money management to credit-related issues―helping individuals curb overspending and achieve financial goals."
             color="rgba(15, 37, 64, 0.6)"
-            connected={connected}
+            connected={userInfo && userInfo.fa_connected}
             handleConnect={() => navigateClientLocation()}
-           // handleConnect={() => setConnected(true)}
-          //  handleDisonnect={() => setConnected(false)}
+           // handleDisconnect={() => navigateClientLocationDisconnect()}
+        
           />
         </Grid>
         <Grid container item xs={12}>
