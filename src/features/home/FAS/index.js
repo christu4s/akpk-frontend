@@ -175,7 +175,7 @@ const useStyles = makeStyles((theme) => ({
 export default function FAS() {
   const fasConnectUrl = 'http://10.250.1.121/osp-server/api/connect_financial_advisory';
   const classes = useStyles();
-  const [fa_connected, setConnected] = useState(false);
+  const [connected, setConnected] = useState(false);
   const {token, userInfo, user, setUserInfo} = useAuth();
   const navigateClientLocation = event => {
     window.open(fasConnectUrl, '_self', 'noopener,noreferrer');

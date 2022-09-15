@@ -42,6 +42,7 @@ export default function Education() {
   const feconnectUrl = 'http://10.250.1.121/osp-server/api/feconnect';
   const myCourseUrl = 'https://fpxuat.akpk.org.my:8443/eLearning/Courses/MyCourses';
   const purchaseHistoryUrl = 'https://fpxuat.akpk.org.my:8443/Commerce/Cart/PurchaseHistory';
+  const defaultPage = ' https://fpxuat.akpk.org.my:8443';
   const classes = useStyles();
   const navigate = useNavigate();
   const [connected, setConnected] = useState(false);
@@ -75,6 +76,10 @@ export default function Education() {
 
  const viewPurchaseHostory = () => {
   window.open(purchaseHistoryUrl, '_target', 'noopener, noreferrer');
+ }
+
+ const viewDefaultPage = () => {
+  window.open(defaultPage, '_target', 'noopener, noreferrer');
  }
  useEffect(() => {
   axios.get(`list_fe_dashboard_items`,config)
@@ -169,7 +174,7 @@ export default function Education() {
             <DmpCard
               title='My Badges'
               icon='badges'
-              Button={<button className={classes.button}>View badges</button>}
+              Button={<button className={classes.button} onClick={viewDefaultPage}>View badges</button>}
               content={[{
                 title: 'Login Badge',
                 value: badgeLogin
@@ -193,7 +198,7 @@ export default function Education() {
             <DmpCard
               title='My Achievements'
               icon='achievements'
-              Button={<button className={classes.button}>View point</button>}
+              Button={<button className={classes.button} onClick={viewDefaultPage}>View point</button>}
                content={[{
                 title: 'Accumulated Points',
                 value: achievementPoints
@@ -210,7 +215,7 @@ export default function Education() {
             <DmpCard
               title='My Series'
               icon='series'
-              Button={<button className={classes.button}>View series</button>}
+              Button={<button className={classes.button} onClick={viewDefaultPage}>View series</button>}
               content={[{
                 title: 'Your Recent Series'
               }]}
