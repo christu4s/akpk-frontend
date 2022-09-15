@@ -22,6 +22,7 @@ import FilterListIcon from "@mui/icons-material/FilterList";
 import { BiSearch } from "react-icons/bi";
 import { CheckBox } from "@mui/icons-material";
 import { useAuth } from '../../../components/Auth';
+import axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
   margin: {
@@ -177,11 +178,21 @@ export default function FAS() {
   const classes = useStyles();
   const [connected, setConnected] = useState(false);
   const {token, userInfo, user, setUserInfo} = useAuth();
+  const config = {
+    headers: { Authorization: `Bearer ${token}` }
+  };
+
+
   const navigateClientLocation = event => {
     window.open(fasConnectUrl, '_self', 'noopener,noreferrer');
   }
   const navigateClientLocationDisconnect = event => {
-    return false;
+    axios.get(`disconnect_fa_portal`,config)
+    .then(result => {
+      if(result.data.status == true) {
+         setUserInfo({...userInfo, fa_connected: false});
+       }
+    }) 
   }
   return (
     <DashboardLayout>
@@ -194,7 +205,7 @@ export default function FAS() {
             color="rgba(15, 37, 64, 0.6)"
             connected={userInfo && userInfo.fa_connected}
             handleConnect={() => navigateClientLocation()}
-           // handleDisconnect={() => navigateClientLocationDisconnect()}
+            handleDisconnect={() => navigateClientLocationDisconnect()}
         
           />
         </Grid>
