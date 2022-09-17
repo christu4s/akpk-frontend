@@ -66,20 +66,6 @@ export default function EmailSignUp() {
       email: "",
     },
     validationSchema: validationSchema,
-    /*onSubmit: (values) => {
-     // alert(JSON.stringify(values, null, 2));
-     
-      axios.post(`http://10.250.1.121/osp-server/api/signup_email`,{ email: values.email})
-      .then(result => {
-        console.log(typeof result.status);return false;
-       if(result.otp && result.otp !== '') {
-          navigate("/email-check");
-       }
-      })
-      navigate("/email-check");
-
-    },*/
-    
   });
 
   const redirectURL = () => {

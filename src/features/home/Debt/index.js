@@ -97,7 +97,7 @@ export default function Debt() {
       axios.get(`get_application_url`,config)
      .then(result => {
        if(result.data.response.application_url) {
-         window.open(result.data.response.application_url+'/LoginCode='+result.data.response.login_code+'&CustomerID='+result.data.CustomerID, '_self', 'noopener,noreferrer');
+         window.open(result.data.response.application_url+'/LoginCode='+result.data.response.login_code+'&CustomerID='+result.data.CustomerID, '_blank', 'noopener,noreferrer');
        } else {
         console.log('Not yet received url');
        }

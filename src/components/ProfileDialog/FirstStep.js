@@ -1,6 +1,7 @@
 import { TextField, Typography, Grid, Button } from "@mui/material";
 import React, { useState } from "react";
 import axios from 'axios';
+import { useAuth } from '../Auth';
 
 import { makeStyles } from "@mui/styles";
 
@@ -34,20 +35,23 @@ export default function FirstStep({ setId }) {
   const [icNumber, setIcNumber] = useState(null);
   const [contactNumber, setContactNumber] = useState(null);
   const [email, setEmail] = useState(null);
+  const {token, userInfo, user, setUserInfo} = useAuth();
+  
   const updateProfile = () => {
-    // if(user.login_via == 'email') {
-    //   var postData = { name:fullName, contact_number: contactNumber,ic_number:icNumber, token:user.token, email: user.user.email, login_via:user.login_via };
-    // } else {
-    //   var postData = { name:fullName, contact_number: user.user.contact_number,ic_number:icNumber, token:user.token, email: email, login_via:user.login_via};
-    // }
-    // axios.post(`http://10.250.1.121/osp-server/api/update_profile`, postData)
-    //   .then(result => {
-    //     if(result.data.status && result.data.status === true) {
-    //       return setId();
-    //     } else {
-    //       return false;
-    //     }
-    //   }) 
+    console.log('userInfoNew',userInfo.login_via);
+    if(userInfo.login_via == 'email') {
+      var postData = { name:fullName, contact_number: contactNumber,ic_number:icNumber, email: userInfo.user.email, login_via:userInfo.login_via };
+    } else {
+      var postData = { name:fullName, contact_number: userInfo.user.contact_number,ic_number:icNumber,  email: email, login_via:userInfo.login_via};
+    }
+    axios.post(`update_profile`, postData)
+      .then(result => {
+        if(result.data.status && result.data.status === true) {
+          return setId();
+        } else {
+          return false;
+        }
+      }) 
    }
   
   return (
@@ -70,17 +74,16 @@ export default function FirstStep({ setId }) {
         </Typography>
         <TextField fullWidth placeholder="IC Number" value={icNumber} onChange = {(e) => setIcNumber(e.target.value)}/>
       </Grid>
-      {  <Grid item xs={12}>
-        <Typography variant="h4" className={classes.label}>
-          Email
-        </Typography>
-        <TextField fullWidth placeholder="Email" value={email} onChange = {(e)=>setEmail(e.target.value)}/>
-      </Grid>}
-      { <Grid item xs={12}>
+       { userInfo.email? <Grid item xs={12}>
         <Typography variant="h4" className={classes.label}>
           Contact number
         </Typography>
         <TextField fullWidth placeholder="Contact number" value={contactNumber} onChange = {(e) => setContactNumber(e.target.value)} />
+      </Grid> : <Grid item xs={12}>
+        <Typography variant="h4" className={classes.label}>
+          Email
+        </Typography>
+        <TextField fullWidth placeholder="Email" value={email} onChange = {(e)=>setEmail(e.target.value)}/>
       </Grid>}
       <Grid item xs={12}>
         <Button
