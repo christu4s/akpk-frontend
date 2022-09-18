@@ -9,6 +9,7 @@ import Header from "../../../components/Header";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import AlertValidation from "../../../components/AlertValidation";
+import PasswordChecklist from "react-password-checklist"
 
 const useStyles = makeStyles((theme) => ({
   buttonContained: {
@@ -147,6 +148,13 @@ export default function PhoneSignUp() {
               InputLabelProps={{ shrink: true }}
             />
           </Grid>
+          <PasswordChecklist
+            rules={["minLength","specialChar","number","capital","match"]}
+            minLength={5}
+            value={formik.values.password}
+            valueAgain={formik.values.c_password}
+            onChange={(isValid) => {}}
+          />
 
           <Grid item padding={2} xs={12}>
             <Button

@@ -37,8 +37,9 @@ export default function FirstStep({ setId }) {
   const [email, setEmail] = useState(null);
   const {token, userInfo, user, setUserInfo} = useAuth();
   
+  
   const updateProfile = () => {
-    console.log('userInfoNew',userInfo.login_via);
+    console.log('userInfoNew',userInfo);
     if(userInfo.login_via == 'email') {
       var postData = { name:fullName, contact_number: contactNumber,ic_number:icNumber, email: userInfo.user.email, login_via:userInfo.login_via };
     } else {

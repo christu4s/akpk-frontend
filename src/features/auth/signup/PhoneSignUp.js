@@ -64,7 +64,6 @@ export default function PhoneSignUp() {
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-     // return console.log(formik.values.phone);
      if(formik.values.phone) {
         axios.post(`http://10.250.1.121/osp-server/api/signup_number`,{ mobile_phone: formik.values.phone.replace(/[^a-zA-Z0-9 ]/g, "").replace(/ /g, "")})
         .then(result => {

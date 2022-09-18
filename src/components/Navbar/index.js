@@ -118,7 +118,7 @@ export default function Navbar({ openDialog }) {
               <NotificationsNoneIcon className={classes.bell} color="action" />
             </Badge>
           </Box> */}
-          <Box className={classes.profile} onClick={openDialog} >
+          {/* <Box className={classes.profile} onClick={openDialog} >
             <Box className={classes.imageContainer}>
               <img
                 width="50"
@@ -132,7 +132,7 @@ export default function Navbar({ openDialog }) {
                 Financial Administrator 
               </Typography>
             </Box>
-          </Box>
+          </Box> */}
         </Box>
       </Box>
       {/* <Box>
