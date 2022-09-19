@@ -177,7 +177,7 @@ export default function FAS() {
   const fasConnectUrl = 'http://10.250.1.121/osp-server/api/connect_financial_advisory';
   const classes = useStyles();
   const [connected, setConnected] = useState(false);
-  const [appointmnetHisory, setAppointmentHistory] = useState({});
+  const [appointmentHisoryLists, setAppointmentHistoryLists] = useState([]);
   const {token, userInfo, user, setUserInfo} = useAuth();
   const config = {
     headers: { Authorization: `Bearer ${token}` }
@@ -199,8 +199,9 @@ export default function FAS() {
   useEffect(()=> {
     axios.get(`appointment_history`,config).then(result => {
       if(result.data.status == true) {
-        console.log('appointment_history', result.data);
-        setAppointmentHistory(setAppointmentHistory);
+        console.log('appointment_history', result.data.response);
+        setAppointmentHistoryLists(result.data.response);
+        console.log('appointmentHisoryLists',appointmentHisoryLists);
       }
     })
   },[JSON.stringify(config)])
@@ -265,14 +266,15 @@ export default function FAS() {
         <Grid item xs={12} md={4}></Grid>
         <Grid item xs={12} md={2}>
           <Button
-            classNAme={classes.filterButton}
+            className={classes.filterButton}
             fullWidth
             className={classes.filter}
           >
             <FilterListIcon className={classes.filterIcon} /> Filter
           </Button>
         </Grid>
-        <Grid item xs={12}>
+       
+        <Grid item xs={12} >
           <Paper className={classes.paper}>
             <Grid container spacing={2}>
               <Grid item xs={12}>
@@ -301,29 +303,28 @@ export default function FAS() {
                     Remarks
                   </Typography>
                 </Grid>
-                <Grid item xs={1}>
-                  <Typography className={classes.headerContent}>
-                    Action
-                  </Typography>
-                </Grid>
+               
               </Grid>
-              <Grid item container xs={12} className={classes.tableContent}>
-                <Grid item xs={3}>
+              {
+              appointmentHisoryLists.map((appointmentHisory, index)=>
+              <Grid item container xs={12} className={classes.tableContent} key={index}>
+                
+                  <Grid item xs={3}>
                   <FormControlLabel
                     className={classes.date}
                     control={
                       <Checkbox defaultChecked className={classes.checkbox} />
                     }
-                    label="Jan 13, 2022"
+                    label={appointmentHisory.appointment_date}
                   />
                 </Grid>
                 <Grid item xs={4}>
                   <Box className={classes.branch}>
                     <Typography className={classes.branchTitle}>
-                      Branch
+                      {appointmentHisory.service.name_en}
                     </Typography>
                     <Typography className={classes.branchDesc}>
-                      7381 Summerhouse Lane
+                    {appointmentHisory.service.Household}
                     </Typography>
                   </Box>
                 </Grid>
@@ -332,7 +333,7 @@ export default function FAS() {
                     <Chip
                       className={classes.chip}
                       icon={<CircleIcon className={classes.circleIcon} />}
-                      label="Pending"
+                      label={appointmentHisory.status}
                     />
                   </Box>
                 </Grid>
@@ -341,224 +342,14 @@ export default function FAS() {
                     $30,021.23
                   </Typography>
                 </Grid>
-                <Grid item xs={1}>
-                  <Typography className={classes.action}>
-                    <ModeEditOutlineOutlinedIcon
-                      className={classes.actionIcon}
-                    />
-                  </Typography>
-                </Grid>
+                
               </Grid>
-              <Grid item container xs={12} className={classes.tableContent}>
-                <Grid item xs={3}>
-                  <FormControlLabel
-                    className={classes.date}
-                    control={
-                      <Checkbox defaultChecked className={classes.checkbox} />
-                    }
-                    label="Jan 13, 2022"
-                  />
-                </Grid>
-                <Grid item xs={4}>
-                  <Box className={classes.branch}>
-                    <Typography className={classes.branchTitle}>
-                      Branch
-                    </Typography>
-                    <Typography className={classes.branchDesc}>
-                      7381 Summerhouse Lane
-                    </Typography>
-                  </Box>
-                </Grid>
-                <Grid item xs={2}>
-                  <Box className={classes.chipContainer}>
-                    <Chip
-                      className={classes.chip}
-                      icon={<CircleIcon className={classes.circleIcon} />}
-                      label="Pending"
-                    />
-                  </Box>
-                </Grid>
-                <Grid item xs={2}>
-                  <Box>
-                    <Typography className={classes.remarque}>
-                      $30,021.23
-                    </Typography>
-                  </Box>
-                </Grid>
-                <Grid item xs={1}>
-                  <Typography className={classes.action}>
-                    <ModeEditOutlineOutlinedIcon
-                      className={classes.actionIcon}
-                    />
-                  </Typography>
-                </Grid>
-              </Grid>
-              <Grid item container xs={12} className={classes.tableContent}>
-                <Grid item xs={3}>
-                  <FormControlLabel
-                    className={classes.date}
-                    control={
-                      <Checkbox defaultChecked className={classes.checkbox} />
-                    }
-                    label="Jan 13, 2022"
-                  />
-                </Grid>
-                <Grid item xs={4}>
-                  <Box className={classes.branch}>
-                    <Typography className={classes.branchTitle}>
-                      Branch
-                    </Typography>
-                    <Typography className={classes.branchDesc}>
-                      7381 Summerhouse Lane
-                    </Typography>
-                  </Box>
-                </Grid>
-                <Grid item xs={2}>
-                  <Box className={classes.chipContainer}>
-                    <Chip
-                      className={classes.chip}
-                      icon={<CircleIcon className={classes.circleIcon} />}
-                      label="Pending"
-                    />
-                  </Box>
-                </Grid>
-                <Grid item xs={2}>
-                  <Box>
-                    <Typography className={classes.remarque}>
-                      $30,021.23
-                    </Typography>
-                  </Box>
-                </Grid>
-                <Grid item xs={1}>
-                  <Typography className={classes.action}>
-                    <ModeEditOutlineOutlinedIcon
-                      className={classes.actionIcon}
-                    />
-                  </Typography>
-                </Grid>
-              </Grid>
-              <Grid item container xs={12} className={classes.tableContent}>
-                <Grid item xs={3}>
-                  <FormControlLabel
-                    className={classes.date}
-                    control={
-                      <Checkbox defaultChecked className={classes.checkbox} />
-                    }
-                    label="Jan 13, 2022"
-                  />
-                </Grid>
-                <Grid item xs={4}>
-                  <Box className={classes.branch}>
-                    <Typography className={classes.branchTitle}>
-                      Branch
-                    </Typography>
-                    <Typography className={classes.branchDesc}>
-                      7381 Summerhouse Lane
-                    </Typography>
-                  </Box>
-                </Grid>
-                <Grid item xs={2}>
-                  <Box className={classes.chipContainer}>
-                    <Chip
-                      className={classes.chip}
-                      icon={<CircleIcon className={classes.circleIcon} />}
-                      label="Pending"
-                    />
-                  </Box>
-                </Grid>
-                <Grid item xs={2}>
-                  <Box>
-                    <Typography className={classes.remarque}>
-                      $30,021.23
-                    </Typography>
-                  </Box>
-                </Grid>
-                <Grid item xs={1}>
-                  <Typography className={classes.action}>
-                    <ModeEditOutlineOutlinedIcon
-                      className={classes.actionIcon}
-                    />
-                  </Typography>
-                </Grid>
-              </Grid>
-              <Grid item container xs={12} className={classes.tableContent}>
-                <Grid item xs={3}>
-                  <FormControlLabel
-                    className={classes.date}
-                    control={
-                      <Checkbox defaultChecked className={classes.checkbox} />
-                    }
-                    label="Jan 13, 2022"
-                  />
-                </Grid>
-                <Grid item xs={4}>
-                  <Box className={classes.branch}>
-                    <Typography className={classes.branchTitle}>
-                      Branch
-                    </Typography>
-                    <Typography className={classes.branchDesc}>
-                      7381 Summerhouse Lane
-                    </Typography>
-                  </Box>
-                </Grid>
-                <Grid item xs={2}>
-                  <Box className={classes.chipContainer}>
-                    <Chip
-                      className={classes.chip}
-                      icon={<CircleIcon className={classes.circleIcon} />}
-                      label="Pending"
-                    />
-                  </Box>
-                </Grid>
-                <Grid item xs={2}>
-                  <Box>
-                    <Typography className={classes.remarque}>
-                      $30,021.23
-                    </Typography>
-                  </Box>
-                </Grid>
-                <Grid item xs={1}>
-                  <Typography className={classes.action}>
-                    <ModeEditOutlineOutlinedIcon
-                      className={classes.actionIcon}
-                    />
-                  </Typography>
-                </Grid>
-              </Grid>
-              <Grid
-                item
-                container
-                className={classes.tableAction}
-                xs={12}
-                spacing={2}
-              >
-                <Grid item xs={6}>
-                  <Typography className={classes.pages}>
-                    Page 1 of 10
-                  </Typography>
-                </Grid>
-                {/* <Grid item xs={3}>
-                  <Button
-                    fullWidth
-                    variant="outlined"
-                    className={classes.actionButton}
-                  >
-                    Previous
-                  </Button>
-                </Grid>
-                <Grid item xs={3}>
-                  <Button
-                    fullWidth
-                    variant="outlined"
-                    className={classes.actionButton}
-                  >
-                    Next
-                  </Button>
-                </Grid> */}
-              </Grid>
+               )
+               }
             </Grid>
           </Paper>
         </Grid>
+      
       </Grid>
     </DashboardLayout>
   );
