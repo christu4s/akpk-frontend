@@ -88,11 +88,11 @@ export default function CheckPhone() {
           />
         </Grid>
         <Grid item xs={12}>
-          <Typography variant="h2">Check your Phone</Typography>
+          <Typography variant="h2">Check your phone</Typography>
         </Grid>
         <Grid item xs={12}>
           <Typography variant="body1">
-            We sent a OTP to {state.mobile_phone}
+            We sent an OTP to {state.mobile_phone}
           </Typography>
         </Grid>
         <Grid item xs={12} className={classes.otpContainer}>

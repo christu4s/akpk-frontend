@@ -31,12 +31,14 @@ const useStyles = makeStyles((theme) => ({
 export default function Footer() {
   const classes = useStyles();
   return (
-    <Box className={classes.footerContainer}>
-      <Typography className={classes.text}>
-        &copy;2021 AKPK. All Rights Reserved.
-      </Typography>
-      <Typography className={classes.text}>Terms of Service</Typography>
-      <Typography className={classes.text}>Privacy Policy</Typography>
-    </Box>
+    <div style={{marginTop: "350px"}}>
+      <Box className={classes.footerContainer}>
+        <Typography className={classes.text}>
+          &copy;2021 AKPK. All Rights Reserved.
+        </Typography>
+        <Typography className={classes.text}>Terms of Service</Typography>
+        <Typography className={classes.text}>Privacy Policy</Typography>
+      </Box>
+    </div>
   );
 }

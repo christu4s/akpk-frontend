@@ -13,7 +13,7 @@ import {
 import CircleIcon from "@mui/icons-material/Circle";
 import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
 import { makeStyles } from "@mui/styles";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import BlueCard from "../../../components/BlueCard";
 import ChartCard from "../../../components/ChartCard";
 import ParticipationCard from "../../../components/ParticipationCard";
@@ -177,6 +177,7 @@ export default function FAS() {
   const fasConnectUrl = 'http://10.250.1.121/osp-server/api/connect_financial_advisory';
   const classes = useStyles();
   const [connected, setConnected] = useState(false);
+  const [appointmnetHisory, setAppointmentHistory] = useState({});
   const {token, userInfo, user, setUserInfo} = useAuth();
   const config = {
     headers: { Authorization: `Bearer ${token}` }
@@ -194,6 +195,15 @@ export default function FAS() {
        }
     }) 
   }
+
+  useEffect(()=> {
+    axios.get(`appointment_history`,config).then(result => {
+      if(result.data.status == true) {
+        console.log('appointment_history', result.data);
+        setAppointmentHistory(setAppointmentHistory);
+      }
+    })
+  },[JSON.stringify(config)])
   return (
     <DashboardLayout>
       <Grid container spacing={2} className={classes.margin}>

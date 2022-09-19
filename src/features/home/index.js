@@ -80,14 +80,10 @@ export default function Home() {
 
       <Grid container spacing={4} xs={12} className={classes.home}>
         <Grid item xs={12}>
-          <Typography variant="h3">Latest News</Typography>
+          
         </Grid>
         <Grid container item xs={12} spacing={2}>
-          {newsList?.map(({ text, img }) => (
-            <Grid item xs={12} sm={6} md={4} lg={3} xl={3}>
-              <NewsCard title={text} img={img} />
-            </Grid>
-          ))}
+          
         </Grid>
       </Grid>
     </DashboardLayout>

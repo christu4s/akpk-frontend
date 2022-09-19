@@ -36,7 +36,7 @@ export default function FirstStep({ setId }) {
   const [contactNumber, setContactNumber] = useState(null);
   const [email, setEmail] = useState(null);
   const {token, userInfo, user, setUserInfo} = useAuth();
-  
+  console.log('userInfoNew',userInfo);
   
   const updateProfile = () => {
     console.log('userInfoNew',userInfo);

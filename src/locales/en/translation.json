@@ -1,8 +1,8 @@
 {
   "translations": {
     "login": {
-      "login": "Log in",
-      "information": "Welcome back! Please enter your details",
+      "login": "Welcome back!",
+      "information": "Please enter your details to log in",
       "newUser": "New User",
       "oldUser": "Returning User",
       "email": "Sign in with Email",
@@ -13,10 +13,10 @@
     },
     "password" : {
       "update_password" : "Set up your password",
-      "update_password_information" : "To Finalize your Sign Up! please create a password",
+      "update_password_information" : "Please create a strong password to finalise your sign up! ",
       "input_password": "Password",
       "input_c_password" : "Repeat Password",
-      "button_password" : "Update Password"
+      "button_password" : "Create account"
     },
     "phoneLogin": {
       "email": "email",
