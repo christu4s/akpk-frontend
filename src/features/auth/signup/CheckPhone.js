@@ -61,6 +61,7 @@ export default function CheckPhone() {
   const [OTP, setOTP] = useState("");
   const {state} = useLocation();
   const auth = useAuth();
+  const redirectPath = state ? '/home' : "/";
   const OTPSubmit = event => {
     event.preventDefault(); //  prevent page refresh
     
@@ -70,7 +71,16 @@ export default function CheckPhone() {
         auth.login(result.data.user);
         document.cookie = "user="+result.data.user.contact_number+"; expires=0; path=/";
         document.cookie = "token="+result.data.token+"; expires=0; path=/";
-        navigate("/home/",{state:{result:result.data}});
+        if(result?.data?.new_user_status === 'yes') {
+          navigate('/new-password',{
+            state:{
+              result:result.data,
+            }
+          })
+        }
+        else {
+          navigate(redirectPath,{state:{result:result.data}});
+        }
        } else {
          return false;
        }
