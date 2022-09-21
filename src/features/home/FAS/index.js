@@ -306,7 +306,7 @@ export default function FAS() {
                
               </Grid>
               {
-              appointmentHisoryLists.map((appointmentHisory, index)=>
+              appointmentHisoryLists && appointmentHisoryLists.map((appointmentHisory, index)=>
               <Grid item container xs={12} className={classes.tableContent} key={index}>
                 
                   <Grid item xs={3}>
