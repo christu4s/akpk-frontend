@@ -37,7 +37,7 @@ export default function BlueCard({
   color,
   connected,
   handleConnect,
-  handleDisonnect,
+  handleDisconnect,
 }) {
   const classes = useStyles();
 
@@ -77,7 +77,7 @@ export default function BlueCard({
                 disableElevation
                 variant="outlined"
                 className={classes.outlinedButton}
-                onClick={handleDisonnect}
+                onClick={handleDisconnect}
                 style={{marginLeft: "225px"}}
               >
                 Disconnect

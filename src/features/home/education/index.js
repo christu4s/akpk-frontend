@@ -90,7 +90,7 @@ export default function Education() {
   
   return (
     <DashboardLayout>
-      <Grid container spacing={2} className={classes.margin}>
+      <Grid container item xs={12} spacing={2} className={classes.margin}>
         <Grid item xs={12}>
           <BlueCard
             title={"Financial Education"}

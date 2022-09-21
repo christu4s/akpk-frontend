@@ -40,7 +40,7 @@ export default function DebtCard({ icon, title, text }) {
   return (
     <Card elevation={1}>
       <Box className={classes.container}>
-        <Grid conatainer spacing={2}>
+        <Grid container spacing={2}>
           <Box className={classes.iconContainer}>
             <img
               src={require(`../../assets/icons/${icon}.svg`)}

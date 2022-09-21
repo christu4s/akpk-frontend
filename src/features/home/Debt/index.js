@@ -150,7 +150,7 @@ export default function Debt() {
             color="rgba(14, 84, 144, 0.6)"
             connected={userInfo && userInfo.cp_connected}
             handleConnect={() => navigateClientLocation()}
-            handleDisonnect={() => navigateClientLocationDisconnect()}
+            handleDisconnect={() => navigateClientLocationDisconnect()}
           />
         </Grid>
         <Grid container item xs={12}>
