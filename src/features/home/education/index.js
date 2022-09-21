@@ -228,7 +228,7 @@ export default function Education() {
               Button={<button className={classes.button} onClick={viewMyCourses}>View courses</button>}
             >
             <ol>
-              {Courses && Courses.map((course, index)=> <li key={index}>{course.courseTitle}: {course.courseDate}</li> )} 
+              {Courses && Courses.map((course, index)=> <li key={index}>{course.courseTitle}: {course.enrolledDate}</li> )} 
              </ol>
             </DmpCard>
           </Grid>
