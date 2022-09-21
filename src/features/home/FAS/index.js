@@ -199,7 +199,6 @@ export default function FAS() {
   useEffect(()=> {
     axios.get(`appointment_history`,config).then(result => {
       if(result.data.status == true) {
-        console.log('appointment_history', result.data.response);
         setAppointmentHistoryLists(result.data.response);
         console.log('appointmentHisoryLists',appointmentHisoryLists);
       }

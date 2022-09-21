@@ -99,7 +99,7 @@ export default function Education() {
             text="AKPK provides financial education programmes, materials and advisory on these matters relating to money management and proper use of credit; while offering modules that cater for specific financial needs in four (4) stages of life."
              connected={userInfo && userInfo.fe_connected}
              handleConnect={() => navigateClientLocation()}
-             handleDisonnect={() => navigateClientLocationDisconnect()}
+             handleDisconnect={() => navigateClientLocationDisconnect()}
           />
         </Grid>
         <div className={classes.wrapper}>
@@ -228,7 +228,7 @@ export default function Education() {
               Button={<button className={classes.button} onClick={viewMyCourses}>View courses</button>}
             >
             <ol>
-              {Courses.map((course, index)=> <li key={index}>{course.courseTitle}: {course.courseDate}</li> )} 
+              {Courses && Courses?.map((course, index)=> <li key={index}>{course.courseTitle}: {course.courseDate}</li> )} 
              </ol>
             </DmpCard>
           </Grid>
