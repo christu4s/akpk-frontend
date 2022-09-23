@@ -1,5 +1,5 @@
 import { Button, Grid, Typography } from "@mui/material";
-import React from "react";
+import React,{useEffect} from "react";
 import CardWrapper from "../../../components/Card";
 import { useTranslation } from "react-i18next";
 import { makeStyles } from "@mui/styles";
@@ -21,9 +21,13 @@ export default function Login() {
   const classes = useStyles();
   const history = useNavigate();
   const auth = useAuth();
-  if(auth.token) {
-    history('/home');
-  }
+
+  useEffect(() => {
+    if(auth.token){
+      history('/home');
+    }
+  }, [auth.token]);
+
   return (
     <CardWrapper>
       <Grid container spacing={2}>

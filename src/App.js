@@ -27,6 +27,7 @@ import {useEffect} from 'react';
 import {useAuth} from './components/Auth';
 import {ProtectedRoute} from "./components/ProtectedRoute";
 function App() {
+  const Auth = useAuth();
   return (
     <div className="App">
       <AuthProvider>
